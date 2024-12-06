@@ -1,86 +1,127 @@
-# Neuron Atlas analysis
-This repository contains code for the whole-brain-scale analysis of Cell-type (Neuron, microglia, and cell nuclei) detection, utilizing datasets imaged through tissue clearing and 10x light-sheet microscopy (xy FWHM resolution: 1.19 um, z FWHM resolution: 3.39 um) and Neuon Atlasへsingle-cell levelでのregistrationを行います。それに加えて、advancedな解析を含んでおり、regional and single cell levelでの細胞分布の統計解析、pathological pseudotime anakysis, spatial transcriptomeとの統合を含むspatial single-cell risk解析を含みます. データはすべてxyzが0.65x0.65x2.5 umのvoxel resolution, ROI sizeは2048x2060 (2048x2048のみが有効なROI範囲),16bit gray scaleの画像, Neuron, microglia, and cell nucleiの3チャネルで撮影されたマウス全脳データ(1脳あたりtotal 約15TB)を想定しています。マウス脳は、previous study (Matsumoto K, et al., Nature Protocols 2019)とほぼ同様の撮影方式を撮影しており、dorsal側のxyのTileに対してZ stackをとることを繰り返して、全xy tileを撮影し、180度回転させて、ventral側のxy tileのz stackを撮影されました。xyz, 回転方向も、いずれも十分なoverlapをもつように撮影され、stitcingにより厳密な空間位置が補正されました。
-Neuron Atlasの細胞データ(xyz座標, cell type(Neuron or not),atlas annntation ID)、画像registerのreferenceとなる細胞密度のaverage template image (cell nuclear or neuron, Allen Brain Atlasの10um scaleのtemplateに互換性あり) はこのリンクでダウンロードできます: hogehoge (後日update予定)
-10um VoxelあたりのNeuron ratioをもとに決めたpractical gray matter (pGM), practical white matter (pWM)のregion annotation、およびそれらをtransistionalに分割したmask画像データ(Allen Brain Atlasの10um scaleのtemplateに互換性あり)はこのリンクでダウンロードできます: hogehoge (後日update予定)
+# Neuron Atlas Analysis
 
+This repository provides code for whole-brain-scale analyses of cell types (neurons, microglia, and cell nuclei) detected from mouse brain imaging data acquired via tissue clearing and 10x light-sheet microscopy. We perform single-cell-level registration to a Neuron Atlas and implement advanced analyses including:
+- Statistical evaluation of regional and single-cell distributions
+- Pathological pseudotime analysis
+- Spatial transcriptome integration
+- Spatial single-cell risk assessments
+
+## Data Specifications
+- **Voxel resolution:** 0.65 x 0.65 x 2.5 µm (xyz)  
+- **ROI size:** 2048 x 2060 (effective 2048 x 2048)  
+- **Bit depth:** 16-bit grayscale images  
+- **Channels:** Neurons, Microglia, Cell nuclei  
+- **Data volume:** ~15 TB per whole brain  
+- **Imaging protocol:** Similar to Matsumoto K, et al., *Nature Protocols* 2019. Z-stacks are captured from both dorsal and ventral directions with sufficient overlap. Stitched volumes ensure accurate spatial registration.
+
+## Available Data (To be updated)
+- **Neuron Atlas cell data:** (xyz coordinates, cell type annotations, atlas annotation IDs)  
+- **Averaged template images:** For cell density (cell nuclei or neurons), compatible with the Allen Brain Atlas (10 µm scale)  
+- **pGM/pWM masks:** Practical gray matter (pGM) and practical white matter (pWM) masks defined by neuron ratio at 10 µm scale, also compatible with Allen Brain Atlas templates
+
+**Download links:** `hogehoge` (to be updated)
 
 ## Overview
-The primary objective of this code is to facilitate the identification and analysis of all cells with neuron-marker (anti-NeuN) and microglia-marker (anti-Iba1) posiveかどうか across the entire brain. Our methods integrate several advanced computational techniques and visualization tools to achieve this goal. Cell detectionの部分はGPUを用いた解析を、それ以外はCPUベースの解析を遂行します。
-
-
-
+The primary goal of this code is to identify and analyze all cells expressing neuron-marker (anti-NeuN) and microglia-marker (anti-Iba1) across the entire brain. We integrate GPU-based cell detection and CPU-based analyses. Advanced computational methods enable:
+- Single-cell and regional-level data integration
+- Registration to a Neuron Atlas
+- Advanced spatial statistical analyses
 
 ## Basic Workflow
-コードを実行する前に、/param/を例としたようなparameter fileを作製する必要があります。そこへ画像のサイズや解像度、保存されているpathの場所などをinputする必要があります。
-The basic procedure for analyzing whole-brain cell-type detection consists of the following steps:
 
-1. Cell digitization
-  1-1. GPU-based cell candidate segmentation of FW方向: これはprevious study (Matsumoto K, et al., Nature Protocols 2019, github: https://github.com/lsb-riken/CUBIC-informatics)のHDoG Filter baseのcell segmentationを改変したもので、主に、Neuron, microgliaのチャネルにおけるmin-max filterによるnormalize値の取得する点が追加されました。FW方向というのは、脳のdorsal側のことで、脳の深部から順に表面へdorsal側に順番にZ stack撮影されたデータを基にしています。commandラインで実行します。
-   example command: docker compose run dev python script/HDoG_gpu.py param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
-  1-2. GPU-based cell candidate segmentation of RV方向: これはprevious study (Matsumoto K, et al., Nature Protocols 2019, github: https://github.com/lsb-riken/CUBIC-informatics)を改変したもので、主に、Neuron, microgliaのチャネルにおけるmin-max filterによるnormalize値の取得する点が追加されました。FW方向というのは、脳のventral側のことで、脳の深部から順に脳の表面へventral側へ順番にZ stack撮影されたデータを基にしています。commandラインで実行します。
-   example command: docker compose run dev python script/HDoG_gpu.py param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
-  1-3. Merge: stack内のlocal座標を、roughに全脳の座標系へ変換(stitchingは行われていない)する。これはprevious study (Matsumoto K, et al., Nature Protocols 2019, github: https://github.com/lsb-riken/CUBIC-informatics)を改変したものです。
-   example command: python script/MergeBrain_NeuN.py full param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_merge.json
-  1-4. Cell nuclei classify: Cell nuclearの抽出をmin-max filterによるnormalized intensityとstructurenessをもとに分類する。これはprevious study (Matsumoto K, et al., Nature Protocols 2019, github: https://github.com/lsb-riken/CUBIC-informatics)を改変したものです。
-   example command: python script/HDoG_classifier_NeuN.py param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_classify.json;
-  1-5. Stitching image and cell points: template-matching baseでimageを用いて画像の張り合わせの幅を決定し、cell pointsへも反映させる。これにより透明化状態のrawの全脳のcell pointsの3D dataのxyz位置が確定する。
-   code: /script/stitching_2023/1-5_Robust_stitching_test.ipynb
-  1-6. Making stitched 80um voxel cell density image: cell nuclearの80um voxel wiseのdensity画像をfor registration sourceにつくる
-   code: /script/1_6_Stitched_80um_image_making.ipynb
-  1-7. Whole-brain image registration and cell point transfer to raw Neuron Atlas space (Allen Brain Atlasへのreister前の空間をraw Neuron Atlasと呼んでいます。CUBIC-L/CUBIC-R+ protocolでtissue clearingされた脳はわずかに膨潤しており、そのデータはこのAtlasへwell reisterできます)
-   example command: python script/Atl
-   asMapping_stitched_initial_annotation_all.py annotation param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_mapping_R.json -p 20;
-  1-8. Rank filter normalization
-   example command: python script/MultiChannelVerification-rank-simple-dsb.py param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_multichannel-rank.json -p 5;
-  1-9. pdfCluster-based cell type classification
-   code: /script/1-9_pdfCluster.ipynb
-2.  Cell points registration and assigning anatomical regional annotations (Allen Brain Atlas spaceに互換性あり) 
-   code: /script/1-10_SCA_SCA_registration_and_annotation.ipynb
+### Prerequisites
+Before running the code, prepare a parameter file (e.g., in the `/param/` directory). Specify image size, resolution, and file paths in this parameter file.
 
+### Steps
+1. **Cell Digitization**
+   - **(1-1) GPU-based cell candidate segmentation (Dorsal/FW side)**  
+     Based on a modified HDoG filter approach from Matsumoto K, et al., *Nature Protocols* 2019 ([CUBIC-informatics](https://github.com/lsb-riken/CUBIC-informatics)). Includes min-max filtering for normalization in neuron and microglia channels.  
+     *Example command:*  
+     ```bash
+     docker compose run dev python script/HDoG_gpu.py param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
+     ```
+   
+   - **(1-2) GPU-based cell candidate segmentation (Ventral/RV side)**  
+     Similar to (1-1), but for ventral-side Z-stack imaging.  
+     *Example command:*  
+     ```bash
+     docker compose run dev python script/HDoG_gpu.py param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
+     ```
+   
+   - **(1-3) Merge Local to Global Coordinates**  
+     Transforms local stack coordinates to a global whole-brain coordinate system (pre-stitching).  
+     *Example command:*  
+     ```bash
+     python script/MergeBrain_NeuN.py full param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_merge.json
+     ```
+   
+   - **(1-4) Cell Nuclei Classification**  
+     Classifies cell nuclei based on normalized intensity (min-max filter) and structureness.  
+     *Example command:*  
+     ```bash
+     python script/HDoG_classifier_NeuN.py param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_classify.json
+     ```
+   
+   - **(1-5) Image and Cell Point Stitching**  
+     Uses template matching to determine stitching parameters and applies them to cell coordinates. Finalizes 3D spatial positions of all cell points.  
+     *Code:* `/script/stitching_2023/1-5_Robust_stitching_test.ipynb`
+   
+   - **(1-6) Creating an 80 µm Voxel Cell Density Image**  
+     Generates an 80 µm voxel-resolution cell density image for registration.  
+     *Code:* `/script/1_6_Stitched_80um_image_making.ipynb`
+   
+   - **(1-7) Whole-Brain Registration to Raw Neuron Atlas Space**  
+     Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Allen Brain Atlas.  
+     *Example command:*  
+     ```bash
+     python script/AtlasMapping_stitched_initial_annotation_all.py annotation param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_mapping_R.json -p 20
+     ```
+   
+   - **(1-8) Rank Filter Normalization**  
+     *Example command:*  
+     ```bash
+     python script/MultiChannelVerification-rank-simple-dsb.py param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_multichannel-rank.json -p 5
+     ```
+   
+   - **(1-9) pdfCluster-Based Cell Type Classification**  
+     *Code:* `/script/1-9_pdfCluster.ipynb`
 
+2. **Cell Points Registration and Anatomical Annotation**  
+   Assigns anatomical region annotations compatible with the Allen Brain Atlas space.  
+   *Code:* `/script/1-10_SCA_SCA_registration_and_annotation.ipynb`
 
+## Advanced Analyses
+These analyses provide further insights:
 
-## Advanced Analysis
-Further analysis is conducted through the following advanced procedures:
-
-3.  Calculation of consistency of local cell density after registration
-4.  Whole brain regional plot
-5.  Age-dependent linear regression analysis
-6.  Onset analysis
-7.  Pathological pseudotime analysis
-8.  Thal phase analysis
-9.  Calculation of spatial variation of density and Linear regression analysis for biomarker 2D recall 
-10. Microglial 3D morphology and  microgliosis analysis
-11. Microglial analysis by practical gray matter, practical white matter, and intermediate 8 masks
+3. Calculation of local cell density consistency after registration  
+4. Whole-brain regional plots  
+5. Age-dependent linear regression analysis  
+6. Onset analysis  
+7. Pathological pseudotime analysis  
+8. Thal phase analysis  
+9. Spatial density variation analysis and linear regression for biomarker 2D recall  
+10. Microglial 3D morphology and microgliosis analysis  
+11. Microglial analysis using pGM/pWM masks and intermediate segmentations  
 12. Spatial single-cell risk analysis
 
+## Summary of Results
+1. **Statistical Analysis Summary (Figs and Extended Data)**  
+   Refer to "Supplementary Table 1. Summary of statical analysis.xlsx" for a detailed breakdown.
 
+### Available Data for Download (To be updated)
+- B6J Wild-type (1,3,5,7,9 months, male), APPNL-G-F model (1,3,5,7,9 months, male), VCP model (8-9 weeks old, male), and TMT model (8 weeks old, male) cell data (xyz, cell type, atlas annotation ID) and template images used for registration.
+- Aβ plaque data (xyz coordinates, plaque size, plaque intensity, atlas annotation ID) for B6J WT (1,3,5,7,9 months, male) and APPNL-G-F model (1,3,5,7,9 months, male), following methods described in Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
 
-
-
-## Summary of results
-1. Summary of statical analysis of Figs and Extended Data Figs: Refer to Supplementary Table 1, "**Supplementary Table 1. Summary of statical analysis.xlsx**" for a detailed breakdown.
-2. Source pTau Distribution Data for Three Samples: See Supplementary Table 2, "**Supplementary Table 2. Source data for single-deposition-level tau profiles from three 18-month-old Rosa26-KI Tau++tTA+ mice**" for specific data.
-B6JのWild type(1,3,5,7,9か月例, オス), APPNL-G-Fモデル(1,3,5,7,9か月例, オス), VCPモデル(8-9 weeks old, オス)、TMTモデル(8 weeks old, オス)の細胞データ(xyz座標, cell type(Neuronやmicrogliaであるかどうか),atlas annntation ID)、registerに使用したtemplate画像に関しては、このリンクでダウンロードできます: hogehoge (後日update予定)
-B6JのWild type(1,3,5,7,9か月例, オス), APPNL-G-Fモデル(1,3,5,7,9か月例, オス)のAβ画像は previous study (Yanai et al., Brain Commu. 2024, Github: https://github.com/OrganismalSystemsBiology/Tau-analysis.git)と同じ方法で解析され、Aβのplaque data (xyz座標、plaqueの大きさ、plaqueのintensity, atlas annotation ID)は、registerに使用したtemplate画像に関しては、このリンクでダウンロードできます: hogehoge (後日update予定)
-
-Note: This code does not currently include source image data from light-sheet imaging.
-
-
-
-
+**Note:** This code does not currently include source image data from light-sheet imaging.
 
 ## System Requirements
-This code has been tested on a CentOS Linux release 7.9.2009 (Core) PCでvirtualenv environmentでwithin a Python 3.6.8やPython 3.9.0がコードのavailabilityに従って選択され、適宜使用された。部分的には、 Ubuntu 22.04.4 LTSで、Python 3.7.17やPython 3.9.19が、コードのavailabilityに従って選択され、適宜使用された。
-
-
-
-
+Tested under the following conditions (versions chosen as required for code compatibility):
+- **CentOS Linux release 7.9.2009 (Core)** with Python 3.6.8 or Python 3.9.0 in a virtualenv environment
+- **Ubuntu 22.04.4 LTS** with Python 3.7.17 or Python 3.9.19 in a virtualenv environment
 
 ## Citation
 If you utilize this code in your research, please cite our paper:
-#### Whole-Brain Single-Neuron Atlas Reveals Neuronal Vulnerability Modulated by Spatial Neuron-Microglia Homeostatic Relationship
-Tomoki T. Mitani, et al
 
+**Whole-Brain Single-Neuron Atlas Reveals Neuronal Vulnerability Modulated by Spatial Neuron-Microglia Homeostatic Relationship**  
+Tomoki T. Mitani, et al.  
 DOI: to be updated
-

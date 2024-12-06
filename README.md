@@ -88,7 +88,11 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
 2. **Cell Points Registration and Anatomical Annotation**  
    Assigns anatomical region annotations compatible with the Allen Brain Atlas space.  
-   *Code:* `/script/1-10_SCA_SCA_registration_and_annotation.ipynb`
+   *Code:* `/script/2_SCA_SCA_registration_and_annotation.ipynb`
+
+   For Aβ data:  
+   *Code:* `/script/2_Abeta_data_registration_to_SCA.ipynb`
+
 
 ## Advanced Analyses
 These analyses provide further insights:

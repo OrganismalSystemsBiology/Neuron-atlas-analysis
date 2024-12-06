@@ -1,11 +1,12 @@
 # Neuron Atlas analysis
-This repository contains code for the whole-brain-scale analysis of Cell-type (Neuron, microglia, and cell nuclei) detection, utilizing datasets imaged through tissue clearing and 10x light-sheet microscopy (xy FWHM resolution: 1.19 um, z FWHM resolution: 3.39 um). データはすべてxyzが0.65x0.65x2.5 umのvoxel resolution, ROI sizeは2048x2060 (2048x2048のみが有効なROI範囲), 3チャネルで撮影されたマウス全脳データ(1脳あたりtotal 約15TB)を想定しています。
-Neuron Atlasの細胞データ(xyz座標, cell type(Neuron or not),atlas annntation ID)、細胞密度のaverage template image (cell nuclear or neuron) はこのリンクでダウンロードできます: hogehoge (後日update予定)
-B6JのWild type(1,3,5,7,9か月例, オス), APPNL-G-Fモデル(1,3,5,7,9か月例, オス), VCPモデル、TMTモデルの細胞データに関しては、このリンクでダウンロードできます: hogehoge (後日update予定)
+This repository contains code for the whole-brain-scale analysis of Cell-type (Neuron, microglia, and cell nuclei) detection, utilizing datasets imaged through tissue clearing and 10x light-sheet microscopy (xy FWHM resolution: 1.19 um, z FWHM resolution: 3.39 um) and Neuon Atlasへsingle-cell levelでのregistration、regional and single cell levelでの細胞分布の統計解析、spatial transcriptomeとの統合を含むsingle-cell risk解析を含みます. データはすべてxyzが0.65x0.65x2.5 umのvoxel resolution, ROI sizeは2048x2060 (2048x2048のみが有効なROI範囲),16bit gray scaleの画像, Neuron, microglia, and cell nucleiの3チャネルで撮影されたマウス全脳データ(1脳あたりtotal 約15TB)を想定しています。
+Neuron Atlasの細胞データ(xyz座標, cell type(Neuron or not),atlas annntation ID)、画像registerのreferenceとなる細胞密度のaverage template image (cell nuclear or neuron, Allen Brain Atlasの10um scaleのtemplateに互換性あり) はこのリンクでダウンロードできます: hogehoge (後日update予定)
+10um VoxelあたりのNeuron ratioをもとに決めたpractical gray matter (pGM), practical white matter (pWM)のregion annotation、およびそれらをtransistionalに分割したmask画像データ(Allen Brain Atlasの10um scaleのtemplateに互換性あり)はこのリンクでダウンロードできます: hogehoge (後日update予定)
+B6JのWild type(1,3,5,7,9か月例, オス), APPNL-G-Fモデル(1,3,5,7,9か月例, オス), VCPモデル(8-9 weeks old, オス)、TMTモデル(8 weeks old, オス)の細胞データ(xyz座標, cell type(Neuronやmicrogliaであるかどうか),atlas annntation ID)、registerに使用したtemplate画像に関しては、このリンクでダウンロードできます: hogehoge (後日update予定)
 
 
 ## Overview
-The primary objective of this code is to facilitate the identification and analysis of all cells with neuron-marker and microglia-marker posiveかどうか across the entire brain. Our methods integrate several advanced computational techniques and visualization tools to achieve this goal. Cell detectionの部分はGPUを用いた解析を、それ以外はCPUベースの解析を遂行します。
+The primary objective of this code is to facilitate the identification and analysis of all cells with neuron-marker (anti-NeuN) and microglia-marker (anti-Iba1) posiveかどうか across the entire brain. Our methods integrate several advanced computational techniques and visualization tools to achieve this goal. Cell detectionの部分はGPUを用いた解析を、それ以外はCPUベースの解析を遂行します。
 
 
 
@@ -13,10 +14,12 @@ The primary objective of this code is to facilitate the identification and analy
 ## Basic Workflow
 The basic procedure for analyzing whole-brain cell-type detection consists of the following steps:
 
-1. Expert Review: Initially, raw data undergo a thorough review by experts to exclude any non-specifically stained anatomical regions.
+1. Cell digitization
+  1-1. GPU-based cell candidate segmentation: これはprevious study (Matsumoto K, et al., Nature Protocols 2019, github: https://github.com/lsb-riken/CUBIC-informatics)を改変したもので、Neuron, microgliaにおけるlocalとglobalのnormalize値の取得する点がupdateされました。
+  1-2. GPU-based cell candidate segmentation: これはprevious study (Matsumoto K, et al., Nature Protocols 2019, github: https://github.com/lsb-riken/CUBIC-informatics)を改変したもので、Neuron, microgliaにおけるlocalとglobalのnormalize値の取得する点がupdateされました。
 2. Voxel Scale Normalization: Data are normalized to a resolution of 8.3x8.3x8.3 µm to ensure uniformity across different datasets.
-3. Tau Deposition ROI Extraction: Regions of interest (ROIs) for tau deposition are identified using a Gaussian-mean difference method. This is implemented in the **Tau extraction.ipynb** notebook.
-4. CUBIC-Cloud Registration: Following ROI extraction, data are registered to a mouse brain atlas using CUBIC-Cloud (https://cubic-cloud.com/), a software tool designed for whole-brain visualization and analysis. The guidelines were detailed in Mano T et al., CellRepMethods, 2021 ([DOI](https://doi.org/10.1016/j.crmeth.2021.100038)https://doi.org/10.1016/j.crmeth.2021.100038).
+4. Tau Deposition ROI Extraction: Regions of interest (ROIs) for tau deposition are identified using a Gaussian-mean difference method. This is implemented in the **Tau extraction.ipynb** notebook.
+5. CUBIC-Cloud Registration: Following ROI extraction, data are registered to a mouse brain atlas using CUBIC-Cloud (https://cubic-cloud.com/), a software tool designed for whole-brain visualization and analysis. The guidelines were detailed in Mano T et al., CellRepMethods, 2021 ([DOI](https://doi.org/10.1016/j.crmeth.2021.100038)https://doi.org/10.1016/j.crmeth.2021.100038).
 
 
 

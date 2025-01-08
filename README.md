@@ -152,7 +152,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
    **Notebook:** `/script/2_SCA_registration_and_annotation.ipynb`
 
    **For Aβ data:**  
-   **Notebook:** `/script/2_Abeta_data_registration_to_SCA.ipynb`
+   **Notebook:** `/script/2_Abeta_data_registration_to_Neuron_Atlas.ipynb`
 
 ## Advanced Analyses
 

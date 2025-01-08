@@ -101,7 +101,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
      ```
 
    - **(1-4) Cell Nuclei Classification**  
-     Classifies cell nuclei based on normalized intensity (min-max filter) and structureness.  
+     Classifies cell nuclei based on normalized intensity (min-max filter) and structureness by HDoG.  
      
      **Example command:**
      ```bash

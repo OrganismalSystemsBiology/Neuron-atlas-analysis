@@ -1,0 +1,59 @@
+{
+    "#": "xy_stitching< left_margin,top_margin",
+    "param_dir": "/home/mitani/CUBIC-informatics/param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/",
+    "dst_basedir": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/stitching_/",
+    "dst_scalemerged_basedir": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/scalemerged_/",
+    "src_basedir": {
+        "FW": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/ex488_em620_FW/",
+        "RV": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/ex488_em620_RV/"
+    },
+    "input_image_info": {
+        "width": 2048,
+        "height": 2048,
+        "#": "margin should be a positive integer(pixel)",
+        "left_margin": 124,
+        "top_margin": 124
+    },
+    "coordinate_info": {
+        "#": "origin of local coordinate = Affine_trasform(filename)",
+        "scale_x": 0.65,
+        "scale_y": 0.65,
+        "scale_z": 2.5
+    },
+    "merge_info": {
+        "boundary_fname": {
+            "FW_boundary": 200320,
+            "RV_boundary": 200320
+        },
+        "flip_rot": {
+            "FW": {
+                "stack_flipX": true,
+                "stack_flipY": false,
+                "merge_flipX": false,
+                "merge_flipY": true,
+                "rotCW": false,
+                "rotCCW": true
+            },
+            "RV": {
+                "stack_flipX": false,
+                "stack_flipY": false,
+                "merge_flipX": false,
+                "merge_flipY": true,
+                "rotCW": false,
+                "rotCCW": true
+            }
+        }
+    },
+    "bcg_intensity": 220,
+    "xy_stitching": {
+        "long_search": 100,
+        "short_search": 100,
+        "z_search": 50,
+        "stitching_times": 10
+    },
+    "FW_RV_stitching": {
+        "#": "must be int*zstep",
+        "stitching_scale": 5,
+        "wrong_FW_RV_stitch_stacks": []
+    }
+}

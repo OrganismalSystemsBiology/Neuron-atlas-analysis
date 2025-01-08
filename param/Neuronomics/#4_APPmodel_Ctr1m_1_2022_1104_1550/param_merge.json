@@ -1,0 +1,38 @@
+{
+    "HDoG_paramfile": {
+        "FW": "/home/mitani/CUBIC-informatics/param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json",
+        "RV": "/home/mitani/CUBIC-informatics/param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_RV.json"
+    },
+    "dst_basedir": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/scalemerged_/",
+    "merge_info": {
+        "#": "horizontally(flipX) or vertically(flipY)",
+        "boundary_fname": {
+            "FW": "200320",
+            "RV": "200320"
+        },
+        "use_at_boundary": "FW",
+        "flip_rot": {
+            "FW": {
+                "flipX": false,
+                "flipY": false,
+                "rotCW": false,
+                "rotCCW": true
+            },
+            "RV": {
+                "flipX": true,
+                "flipY": false,
+                "rotCW": false,
+                "rotCCW": true
+            }
+        }
+    },
+    "scale_info": {
+        "#": "scaled & merged image is flipped in either direction",
+        "downscale_unit": 80.0,
+        "flip_rot": {
+            "flipX": false,
+            "flipY": true,
+            "flipZ": false
+        }
+    }
+}

@@ -1,0 +1,12 @@
+{
+    "MergeBrain_paramfile": "/home/mitani/CUBIC-informatics/param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_merge.json",
+    "dst_basedir": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/nu_R_/result",
+    "#": "Filepath to serialized classifier object",
+    "prefix_ANTs": "/usr/local/ants-2.1.0-redhat/",
+    "atlas_folder": "/export3/Imaging/Axial/Neurorology/8w_B6JWT_atlas_1_2022_0924_1847",
+    "atlas_img_basename": "iso_50um_R_ver4",
+    "atlas_points_basename": "CUBIC-R_Atlas_8w_1_without_NeuN_ver4",
+    "atlas_voxel_unit": 50.0,
+    "max_distance": 200.0,
+    "clf_file": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/classified_/clf_dt.pkl"
+}

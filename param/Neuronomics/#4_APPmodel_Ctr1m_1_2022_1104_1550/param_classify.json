@@ -1,0 +1,32 @@
+{
+    "MergeBrain_paramfile": "/home/mitani/CUBIC-informatics/param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_merge.json",
+    "dst_basedir": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/classified_/",
+    "classifier_name": "clf_dt",
+    "density_img_name": "img_density",
+    "#": "Use only 1/num_skip samples to train and plot",
+    "use_manual_boundary": true,
+    "num_skip_samples": 10000,
+    "manual_boundary": {
+        "#": "  and x_2 is logarithm of structureness",
+        "a": 6.0,
+        "b": 1.0,
+        "c": 2.0
+    },
+    "manual_boundary2": {
+        "#": "  and x_2 is logarithm of structureness",
+        "a": 0.0,
+        "b": 1.0,
+        "c": -0.7
+    },
+    "manual_boundary3": {
+        "#": "  and x_2 is logarithm of structureness",
+        "a": 0.0,
+        "b": 1.0,
+        "c": -0.95
+    },
+    "automatic_boundary": {
+        "#": "set 0 for maximize intensity, set 1 for maximize structureness",
+        "num_clusters": 2,
+        "i_feature_maximize": 1
+    }
+}

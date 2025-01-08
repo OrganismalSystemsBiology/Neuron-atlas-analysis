@@ -1,0 +1,27 @@
+{
+    "#": "paramfile for z position offset",
+    "paramfile_nucl": "/home/mitani/CUBIC-informatics/param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_merge.json",
+    "dst_basedir": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/intensities_/",
+    "clf_file": "/export3/Imaging/Axial/Neurorology/#4_APPmodel_Ctr1m_1_2022_1104_1550/classified_/clf_dt.pkl",
+    "left_stack_xmin": 187960,
+    "offset_right_NeuN": [
+        0,
+        -2,
+        0
+    ],
+    "offset_right_Iba1": [
+        0,
+        0,
+        1
+    ],
+    "offset_left_NeuN": [
+        0,
+        -1,
+        1
+    ],
+    "offset_left_Iba1": [
+        0,
+        0,
+        1
+    ]
+}

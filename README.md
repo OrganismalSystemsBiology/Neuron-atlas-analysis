@@ -69,7 +69,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
      Based on a modified HDoG filter approach from Matsumoto K, et al., *Nature Protocols* 2019 ([CUBIC-informatics](https://github.com/lsb-riken/CUBIC-informatics)).  
      **Installation note:**  
      1) Install the original CUBIC-informatics code so it is available.  
-     2) Copy the `/src/` contents from this repository (including `HDoG3D_NeuN_ver3_Rank_simple_3_color.cpp`) to overwrite the existing code.  
+     2) Copy the `/src/`, `/param/`,`/script/`,`/Abeta_analysis/`, contents from this repository (including `HDoG3D_NeuN_ver3_Rank_simple_3_color.cpp`) to overwrite the existing code.  
      3) Rebuild the project.  
      
      This modified version includes min-max filtering for normalization in the neuron and microglia channels.  

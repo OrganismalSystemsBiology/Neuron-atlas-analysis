@@ -18,7 +18,14 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - **Neuron Atlas cell data:** (xyz coordinates, cell type annotations, atlas annotation IDs) in **"/Neurology/Neuron_Atlas/SCA_Cellome_data_original.bin"**
 - **Averaged template images:** For cell density (cell nuclei or neurons), compatible with the Allen Brain Atlas (10 µm scale) in **"/Neurology/Neuron_Atlas/iso_50um_R_ver4_nuclear_with_ventricle.tif or iso_50um_R_ver4.tif"**
 - **pGM/pWM masks:** Practical gray matter (pGM) and practical white matter (pWM) masks defined by neuron ratio at 10 µm scale, also compatible with Allen Brain Atlas templates in **"/Neurology/pGM_and_pWM_masks/"**
-- 
+  
+**Download links:** https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ
+
+## Available Source Data
+- **Neuron Atlas cell data:** (xyz coordinates, cell type annotations, atlas annotation IDs) in **"/Neurology/Neuron_Atlas/SCA_Cellome_data_original.bin"**
+- **Averaged template images:** For cell density (cell nuclei or neurons), compatible with the Allen Brain Atlas (10 µm scale) in **"/Neurology/Neuron_Atlas/iso_50um_R_ver4_nuclear_with_ventricle.tif or iso_50um_R_ver4.tif"**
+- **pGM/pWM masks:** Practical gray matter (pGM) and practical white matter (pWM) masks defined by neuron ratio at 10 µm scale, also compatible with Allen Brain Atlas templates in **"/Neurology/pGM_and_pWM_masks/"**
+  
 **Download links:** https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ
 
 ## Overview

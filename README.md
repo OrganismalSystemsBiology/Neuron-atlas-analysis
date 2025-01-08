@@ -66,7 +66,14 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
 1. **Cell Digitization**  
    - **(1-1) GPU-based cell candidate segmentation (Dorsal/FW side)**  
-     Based on a modified HDoG filter approach from Matsumoto K, et al., *Nature Protocols* 2019 ([CUBIC-informatics](https://github.com/lsb-riken/CUBIC-informatics)). Includes min-max filtering for normalization in neuron and microglia channels.  
+     Based on a modified HDoG filter approach from Matsumoto K, et al., *Nature Protocols* 2019 ([CUBIC-informatics](https://github.com/lsb-riken/CUBIC-informatics)).  
+     **Installation note:**  
+     1) Install the original CUBIC-informatics code so it is available.  
+     2) Copy the `/src/` contents from this repository (including `HDoG3D_NeuN_ver3_Rank_simple_3_color.cpp`) to overwrite the existing code.  
+     3) Rebuild the project.  
+     
+     This modified version includes min-max filtering for normalization in the neuron and microglia channels.  
+     
      **Example command:**
      ```bash
      docker compose run dev python script/HDoG_gpu.py \
@@ -76,6 +83,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
    - **(1-2) GPU-based cell candidate segmentation (Ventral/RV side)**  
      Similar to (1-1), but for ventral-side Z-stack imaging.  
+     
      **Example command:**
      ```bash
      docker compose run dev python script/HDoG_gpu.py \
@@ -85,6 +93,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
    - **(1-3) Merge Local to Global Coordinates**  
      Roughly transforms local stack coordinates to a global whole-brain coordinate system (pre-stitching).  
+     
      **Example command:**
      ```bash
      python script/MergeBrain_NeuN.py full \
@@ -93,6 +102,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
    - **(1-4) Cell Nuclei Classification**  
      Classifies cell nuclei based on normalized intensity (min-max filter) and structureness.  
+     
      **Example command:**
      ```bash
      python script/HDoG_classifier_NeuN.py \
@@ -101,14 +111,23 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
    - **(1-5) Image and Cell Point Stitching**  
      Uses template matching to determine stitching parameters and applies them to cell coordinates. Finalizes 3D spatial positions of all cell points.  
-     **Notebook:** `/script/stitching_2023/1-5_Robust_stitching_test.ipynb`
+     
+     **Notebook:**  
+     ```
+     /script/stitching_2023/1-5_Robust_stitching_test.ipynb
+     ```
 
    - **(1-6) Creating an 80 µm Voxel Cell Density Image**  
      Generates an 80 µm voxel-resolution cell density image for registration.  
-     **Notebook:** `/script/1_6_Stitched_80um_image_making.ipynb`
+     
+     **Notebook:**  
+     ```
+     /script/1_6_Stitched_80um_image_making.ipynb
+     ```
 
    - **(1-7) Whole-Brain Registration to Raw Neuron Atlas Space**  
      Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Allen Brain Atlas.  
+     
      **Example command:**
      ```bash
      python script/AtlasMapping_stitched_initial_annotation_all.py annotation \
@@ -123,7 +142,10 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
      ```
 
    - **(1-9) pdfCluster-Based Cell Type Classification**  
-     **Notebook:** `/script/1-9_pdfCluster.ipynb`
+     **Notebook:**  
+     ```
+     /script/1-9_pdfCluster.ipynb
+     ```
 
 2. **Cell Points Registration and Anatomical Annotation**  
    Assigns anatomical region annotations compatible with the Allen Brain Atlas space.  

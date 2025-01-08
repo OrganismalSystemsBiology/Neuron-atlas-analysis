@@ -114,7 +114,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
      
      **Notebook:**  
      ```
-     /script/stitching_2023/1-5_Robust_stitching_test.ipynb
+     /script/stitching_2023/1-5_Robust_stitching.ipynb
      ```
 
    - **(1-6) Creating an 80 µm Voxel Cell Density Image**  

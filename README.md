@@ -2,12 +2,10 @@
 
 This repository provides code for whole-brain-scale analyses of cell types (neurons, microglia, and cell nuclei) detected from mouse brain imaging data acquired via tissue clearing and 10x light-sheet microscopy. We perform single-cell-level registration to a Neuron Atlas and implement advanced analyses including:
 
-- Statistical evaluation of regional and single-cell distributions
-- Pathological pseudotime analysis
-- Spatial transcriptome integration
-- Spatial single-cell risk analysis
-
----
+- Statistical evaluation of regional and single-cell distributions  
+- Pathological pseudotime analysis  
+- Spatial transcriptome integration  
+- Spatial single-cell risk analysis  
 
 ## Data Specifications
 
@@ -18,41 +16,37 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - **Data volume:** ~15 TB per whole brain (3 channels)  
 - **Imaging protocol:** Similar to Matsumoto K, et al., *Nature Protocols* 2019. Z-stacks are captured from both dorsal and ventral directions with sufficient overlap. Stitched volumes ensure accurate spatial registration.
 
----
-
 ## Available Atlas Data
 
-- **Neuron Atlas cell data** (xyz coordinates, cell type annotations, atlas annotation IDs):  
+- **Neuron Atlas cell data** (xyz coordinates, cell type annotations, atlas annotation IDs)  
   `"/Neurology/Neuron_Atlas/SCA_Cellome_data_original.bin"`
-- **Averaged template images** (cell density for nuclei or neurons), compatible with the Allen Brain Atlas (10 µm scale):  
+
+- **Averaged template images** for cell density (cell nuclei or neurons), compatible with the Allen Brain Atlas (10 µm scale)  
   `"/Neurology/Neuron_Atlas/iso_50um_R_ver4_nuclear_with_ventricle.tif"` or `"/Neurology/Neuron_Atlas/iso_50um_R_ver4.tif"`
-- **pGM/pWM masks** (practical gray matter and practical white matter):  
-  `"/Neurology/pGM_and_pWM_masks/"` (defined by neuron ratio at 10 µm scale, also compatible with the Allen Brain Atlas)
+
+- **pGM/pWM masks** (practical gray matter and practical white matter, defined by neuron ratio at 10 µm scale)  
+  `"/Neurology/pGM_and_pWM_masks/"`  
 
 **Download link:**  
 [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
-
----
 
 ## Available Source Data
 
-The analyzed data can be found under:  
+Analyzed data can be found under:  
 `"/Neurology/Analyzed_cell_distribution_data/"`  
 
-Each condition folder (e.g., `APP_1m`, `APP_3m`) contains data like `#4_APPmodel_Abeta_APP1m_1` (for Aβ data) or `#4_APPmodel_APP1m_1_2022_1102_1304` (for cell-type data). These folders include post-digitization data (after Step 1 in the workflow). By using these data, you can reproduce Steps 2–12 with the code provided in this repository. If you need to rerun Step 1-9 (pdfCluster-Based Cell Type Classification), you can download the source data again.
+Folders named by condition (e.g., `APP_1m`, `APP_3m`) contain data such as `#4_APPmodel_Abeta_APP1m_1` (for Aβ data) or `#4_APPmodel_APP1m_1_2022_1102_1304` (for cell-type data). These include results after Step 1 of the workflow. By using these data, you can reproduce Steps 2–12 with the code in this repository. If you need to rerun pdfCluster-Based Cell Type Classification (Step 1-9), you can download the source data again.
 
-An example folder structure for **cell-type analysis** is:  
-`"/Neurology/Analyzed_cell_distribution_data/WT_1m/#4_APPmodel_Ctr1m_1_2022_1104_1550/"`  
+- An example folder structure for **cell-type analysis** is:  
+  `"/Neurology/Analyzed_cell_distribution_data/WT_1m/#4_APPmodel_Ctr1m_1_2022_1104_1550/"`
 
-Raw image data (e.g., `ex488_em620_FW`, `ex488_em620_RV`) keep the same folder hierarchy, though most files are placeholders. However, under `"/172000/172000_176260/"`, some raw `.bin` files (`200000.bin`–`200500.bin`) remain for reference on how images should be organized.
+  Raw image data (e.g., `ex488_em620_FW`, `ex488_em620_RV`) keep the same folder hierarchy, though most files are placeholders. However, under `"/172000/172000_176260/"`, there are some `.bin` files (`200000.bin–200500.bin`) to demonstrate the reference structure.
 
-For **Aβ analysis**, an example folder structure is:  
-`"/Neurology/Analyzed_cell_distribution_data/APP_9m/#4_APPmodel_Abeta_APP9m_1/"`
+- An example folder structure for **Aβ analysis** is:  
+  `"/Neurology/Analyzed_cell_distribution_data/APP_9m/#4_APPmodel_Abeta_APP9m_1/"`
 
 **Download link:**  
 [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
-
----
 
 ## Overview
 
@@ -62,8 +56,6 @@ The primary goal of this code is to identify and analyze all cells expressing ne
 - Registration to a Neuron Atlas  
 - Advanced spatial statistical analyses  
 
----
-
 ## Basic Workflow
 
 ### Prerequisites
@@ -72,7 +64,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
 ### Steps
 
-1. **Cell Digitization**
+1. **Cell Digitization**  
    - **(1-1) GPU-based cell candidate segmentation (Dorsal/FW side)**  
      Based on a modified HDoG filter approach from Matsumoto K, et al., *Nature Protocols* 2019 ([CUBIC-informatics](https://github.com/lsb-riken/CUBIC-informatics)). Includes min-max filtering for normalization in neuron and microglia channels.  
      **Example command:**
@@ -140,8 +132,6 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
    **For Aβ data:**  
    **Notebook:** `/script/2_Abeta_data_registration_to_SCA.ipynb`
 
----
-
 ## Advanced Analyses
 
 3. Calculation of local cell density consistency after registration  
@@ -155,8 +145,6 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 11. Microglial analysis using pGM/pWM masks and intermediate segmentations  
 12. Spatial single-cell risk analysis
 
----
-
 ## Summary of Results
 
 1. **Statistical Analysis Summary (Figs and Extended Data)**  
@@ -164,15 +152,13 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
 ### Available Analyzed Data for Download
 
-- B6J Wild-type (8 weeks old, 1,3,5,7,9,12 months, male), APPNL-G-F model (1,3,5,7,9 months, male), VCP model (8-9 weeks old, male), and TMT model (8 weeks old, male) cell data (xyz, cell type, atlas annotation ID), and template images used for registration.
+- B6J Wild-type (8 weeks old, 1,3,5,7,9,12 months, male), APPNL-G-F model (1,3,5,7,9 months, male), VCP model (8-9 weeks old, male), and TMT model (8 weeks old, male) cell data (xyz, cell type, atlas annotation ID) and template images used for registration.  
 - Aβ plaque data (xyz coordinates, plaque size, plaque intensity, atlas annotation ID) for B6J WT (1,3,5,7,9 months, male) and APPNL-G-F model (1,3,5,7,9 months, male), following methods described in Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
 
 **Please download from:**  
 [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
 
-**Note:** This code does not currently include source image data from light-sheet imaging.
-
----
+> **Note:** This code does not currently include source image data from light-sheet imaging.
 
 ## System Requirements
 
@@ -180,8 +166,6 @@ Tested under the following conditions (versions chosen as required for code comp
 
 - **CentOS Linux release 7.9.2009 (Core)** with Python 3.6.8 or Python 3.9.0 in a virtualenv  
 - **Ubuntu 22.04.4 LTS** with Python 3.7.17 or Python 3.9.19 in a virtualenv  
-
----
 
 ## Citation
 

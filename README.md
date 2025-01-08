@@ -134,16 +134,16 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
 
 ## Advanced Analyses
 
-3. Calculation of local cell density consistency after registration  
-4. Whole-brain regional plots  
-5. Age-dependent linear regression analysis  
-6. Onset analysis  
-7. Pathological pseudotime analysis  
-8. Thal phase analysis  
-9. Spatial density variation analysis and linear regression for biomarker 2D recall  
-10. Microglial 3D morphology and microgliosis analysis  
-11. Microglial analysis using pGM/pWM masks and intermediate segmentations  
-12. Spatial single-cell risk analysis
+- **Calculation of local cell density consistency after registration**
+- **Whole-brain regional plots**
+- **Age-dependent linear regression analysis**
+- **Onset analysis**
+- **Pathological pseudotime analysis**
+- **Thal phase analysis**
+- **Spatial density variation analysis and linear regression for biomarker 2D recall**
+- **Microglial 3D morphology and microgliosis analysis**
+- **Microglial analysis using pGM/pWM masks and intermediate segmentations**
+- **Spatial single-cell risk analysis**
 
 ## Summary of Results
 

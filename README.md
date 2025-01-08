@@ -4,7 +4,7 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - Statistical evaluation of regional and single-cell distributions
 - Pathological pseudotime analysis
 - Spatial transcriptome integration
-- Spatial single-cell risk assessments
+- Spatial single-cell risk analysis
 
 ## Data Specifications
 - **Voxel resolution:** 0.65 x 0.65 x 2.5 µm (xyz)  

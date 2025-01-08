@@ -19,7 +19,7 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - **Averaged template images:** For cell density (cell nuclei or neurons), compatible with the Allen Brain Atlas (10 µm scale)  
 - **pGM/pWM masks:** Practical gray matter (pGM) and practical white matter (pWM) masks defined by neuron ratio at 10 µm scale, also compatible with Allen Brain Atlas templates
 
-**Download links:** `hogehoge` (to be updated)
+**Download links:** https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ
 
 ## Overview
 The primary goal of this code is to identify and analyze all cells expressing neuron-marker (anti-NeuN) and microglia-marker (anti-Iba1) across the entire brain. We integrate GPU-based cell detection and CPU-based analyses. Advanced computational methods enable:

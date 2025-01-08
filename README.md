@@ -11,7 +11,7 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - **ROI size:** 2048 x 2060 (effective 2048 x 2048)  
 - **Bit depth:** 16-bit grayscale images  
 - **Channels:** Neurons (anti-NeuN), Microglia (anti-Iba1), Cell nuclei (BOBO-1)  
-- **Data volume:** ~15 TB per whole brain  
+- **Data volume:** ~15 TB per whole brain  (3 channels)
 - **Imaging protocol:** Similar to Matsumoto K, et al., *Nature Protocols* 2019. Z-stacks are captured from both dorsal and ventral directions with sufficient overlap. Stitched volumes ensure accurate spatial registration.
 
 ## Available Data (To be updated)

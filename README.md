@@ -10,7 +10,7 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - **Voxel resolution:** 0.65 x 0.65 x 2.5 µm (xyz)  
 - **ROI size:** 2048 x 2060 (effective 2048 x 2048)  
 - **Bit depth:** 16-bit grayscale images  
-- **Channels:** Neurons, Microglia, Cell nuclei  
+- **Channels:** Neurons (anti-NeuN), Microglia (anti-Iba1), Cell nuclei (BOBO-1)  
 - **Data volume:** ~15 TB per whole brain  
 - **Imaging protocol:** Similar to Matsumoto K, et al., *Nature Protocols* 2019. Z-stacks are captured from both dorsal and ventral directions with sufficient overlap. Stitched volumes ensure accurate spatial registration.
 

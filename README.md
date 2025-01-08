@@ -110,7 +110,7 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
      ```
 
    - **(1-5) Image and Cell Point Stitching**  
-     Uses template matching to determine stitching parameters and applies them to cell coordinates. Finalizes 3D spatial positions of all cell points.  
+     Uses template matching to determine stitching parameters and applies them to cell coordinates. Finalizes 3D spatial positions of all cell points. This part is well explained by Yoshida SY et al., submitted.
      
      **Notebook:**  
      ```

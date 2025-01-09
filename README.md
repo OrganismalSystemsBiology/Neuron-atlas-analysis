@@ -117,12 +117,12 @@ Before running the code, prepare a parameter file (e.g., in the `/param/` direct
      /script/stitching_2023/1-5_Robust_stitching.ipynb
      ```
 
-   - **(1-6) Creating an 80 µm Voxel Cell Density Image**  
-     Generates an 80 µm voxel-resolution cell density image for registration.  
+   - **(1-6) Creating an 50 µm Voxel Cell Density Image**  
+     Generates an 50 µm voxel-resolution cell density image for registration.  
      
      **Notebook:**  
      ```
-     /script/1_6_Stitched_80um_image_making.ipynb
+     /script/1_6_Stitched_50um_image_making.ipynb
      ```
 
    - **(1-7) Whole-Brain Registration to Raw Neuron Atlas Space**  

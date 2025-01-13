@@ -173,8 +173,7 @@ For Aβ data:
    - Notebook (Single Cell): `script/5-2_Sigle_Cell_level_Age-dependent_linear_regression_analysis.ipynb`
 
 6. **Onset analysis**  
-   - Notebook (Regional): `script/6-1_Regional_Onset_analysis.ipynb`  
-   - Notebook (Single Cell): `script/6-2_Sigle_Cell_level_Onset_analysis.ipynb`
+   - Notebook (Single Cell): `script/6_Sigle_Cell_level_Onset_analysis.ipynb`
 
 7. **Pathological pseudotime analysis**  
    - Notebook (Aβ): `script/7-1_Aβ_Pathological_pseudotime_analysis.ipynb`  

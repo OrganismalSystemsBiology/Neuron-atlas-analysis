@@ -176,25 +176,22 @@ For Aβ data:
    - Notebook (Single Cell): `script/6_Sigle_Cell_level_Onset_analysis.ipynb`
 
 7. **Pathological pseudotime analysis**  
-   - Notebook (Aβ): `script/7-1_Aβ_Pathological_pseudotime_analysis.ipynb`  
+   - Notebook (Aβ): `script/7-1_Aβ_Pathological_pseudotime_analysis_and_Thal phase analysis.ipynb`  
    - Notebook (Microglia): `script/7-2_microglial_Pathological_pseudotime_analysis.ipynb`  
    - Notebook (Microgliosis): `script/7-3_microgliosis(NND)_Pathological_pseudotime_analysis.ipynb`
 
-8. **Thal phase analysis**  
-   - Notebook: `script/8_Thal_phase_analysis.ipynb`
+8. **Spatial density variation analysis (3D vs. 2D) and linear regression for biomarker 2D recall**  
+   - Notebook: `script/8_3D_vs_2D_analysis.ipynb`
 
-9. **Spatial density variation analysis (3D vs. 2D) and linear regression for biomarker 2D recall**  
-   - Notebook: `script/9_3D_vs_2D_analysis.ipynb`
+9. **Microglial 3D morphology and microgliosis analysis**  
+    - Notebook: `script/9_Microglial_3D_morphology_and_microgliosis_analysis.ipynb`
 
-10. **Microglial 3D morphology and microgliosis analysis**  
-    - Notebook: `script/10_Microglial_3D_morphology_and_microgliosis_analysis.ipynb`
+10. **Microglial spatial gradient analysis using pGM/pWM masks and intermediate segmentations**  
+    - Notebook: `script/10_Microglial_spatial_gradient_analysis.ipynb`
 
-11. **Microglial spatial gradient analysis using pGM/pWM masks and intermediate segmentations**  
-    - Notebook: `script/11_Microglial_spatial_gradient_analysis.ipynb`
-
-12. **Spatial single-cell-level risk analysis and spatial transcriptome integration analysis**  
-    - Notebook (Risk Analysis): `script/12-1_Spatiotemporal_Neuron_Microglia_risk_analysis.ipynb`  
-    - Notebook (Transcriptome): `script/12-2_Transcritional_Neuron_Microglia_risk_analysis.ipynb`
+11. **Spatial single-cell-level risk analysis and spatial transcriptome integration analysis**  
+    - Notebook (Risk Analysis): `script/11-1_Spatiotemporal_Neuron_Microglia_risk_analysis.ipynb`  
+    - Notebook (Transcriptome): `script/11-2_Transcritional_Neuron_Microglia_risk_analysis.ipynb`
 
 ## Summary of Results
 

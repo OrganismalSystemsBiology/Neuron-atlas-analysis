@@ -14,7 +14,7 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - **Bit depth:** 16-bit grayscale images  
 - **Channels:** Neurons (`anti-NeuN`), Microglia (`anti-Iba1`), Cell nuclei (`BOBO-1`)  
 - **Data volume:** ~15 TB per whole brain (3 channels)  
-- **Imaging protocol:** Similar to Matsumoto K, et al., *Nature Protocols* (2019). Z-stacks are captured from both dorsal and ventral directions with sufficient overlap. Stitched volumes ensure accurate spatial registration.
+- **Imaging protocol:** Similar to [Matsumoto K, et al., *Nature Protocols* (2019)](https://www.nature.com/articles/s41596-019-0240-9). Z-stacks are captured from both dorsal and ventral directions with sufficient overlap, and the resulting images are stitched to ensure accurate spatial registration.
 
 ## Available Atlas Data
 
@@ -190,7 +190,12 @@ For Aβ data:
     - Notebook: `script/10_Microglial_spatial_gradient_making.ipynb`
 
 11. **Spatial single-cell-level risk analysis and spatial transcriptome integration analysis**  
-    - Notebook (Transcriptome): `script/11_Transcriptomical_Neuron_Microglia_risk_analysis.ipynb`
+This code relies on the database from [Shi et al., *Nature* (2023)](https://www.nature.com/articles/s41586-023-06569-5).  
+You can download the datasets from the [Single Cell Portal (SCP1830)](https://singlecell.broadinstitute.org/single_cell/study/SCP1830) and from [Zenodo](https://doi.org/10.5281/zenodo.8327576).  
+For spatial transcriptome integration, the relevant portion of the code references [mCNS-atlas](https://github.com/wanglab-broad/mCNS-atlas).
+
+- **Notebook (Transcriptome):** `script/11_Transcriptomical_Neuron_Microglia_risk_analysis.ipynb`
+
 
 ## Summary of Results
 

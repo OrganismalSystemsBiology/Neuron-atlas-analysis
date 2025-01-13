@@ -186,8 +186,8 @@ For Aβ data:
 9. **Microglial 3D morphology and microgliosis analysis**  
     - Notebook: `script/9_Microglial_3D_morphology_and_microgliosis_analysis.ipynb`
 
-10. **Microglial spatial gradient analysis using pGM/pWM masks and intermediate segmentations**  
-    - Notebook: `script/10_Microglial_spatial_gradient_analysis.ipynb`
+10. **Microglial spatial gradient mask making using pGM/pWM masks and intermediate segmentations**  
+    - Notebook: `script/10_Microglial_spatial_gradient_making.ipynb`
 
 11. **Spatial single-cell-level risk analysis and spatial transcriptome integration analysis**  
     - Notebook (Risk Analysis): `script/11-1_Spatiotemporal_Neuron_Microglia_risk_analysis.ipynb`  

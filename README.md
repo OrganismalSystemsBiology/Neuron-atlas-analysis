@@ -111,13 +111,13 @@ Uses template matching to determine stitching parameters and applies them to cel
 
 - **Notebook**: `script/stitching_2023/1-1-5_Robust_stitching.ipynb`
 
-**(1.1.6) Creating a 50 µm Voxel Cell Density Image**  
+**(1.1.6) Creating a 50 µm Voxel Cell Nuclear Density Image**  
 Generates a 50 µm voxel-resolution cell density image for registration.
 
 - **Notebook**: `script/1-1-6_Stitched_50um_image_making.ipynb`
 
-**(1.1.7) Whole-Brain Registration to Raw Neuron Atlas Space**  
-Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Allen Brain Atlas.
+**(1.1.7) Cell-nuclear-density-based Whole-Brain Registration to Raw Neuron Atlas Space (Rough registration)**  
+Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Raw Neuron Atlas Space.
 
 **Example command**:
 
@@ -134,6 +134,16 @@ Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Allen Brain Atlas.
 **(1.1.9) pdfCluster-Based Cell Type Classification**  
 
 - **Notebook**: `script/1-1-9_pdfCluster.ipynb`
+
+**(1.1.10) Creating a 50 µm Voxel Neuron Density Image**  
+Generates a 50 µm voxel-resolution neuron density image for registration.
+
+- **Notebook**: `script/1-1-10_Neuron_50um_image_making.ipynb`
+
+**(1.1.11) Neuron-cell-density-based Whole-Brain Registration to Raw Neuron Atlas Space**  
+Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Raw Neuron Atlas Space.
+
+- **Notebook**: `script/1-1-11_Registration_to_the_raw_Neuron_Atlas_using_Neuron_density_image.ipynb`
 
 #### 1.2 Aβ Deposition Extraction (using 1x low-resolution light-sheet imaging data)
 

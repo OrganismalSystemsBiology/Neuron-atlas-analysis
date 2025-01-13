@@ -173,7 +173,7 @@ For Aβ data:
    - Notebook (Single Cell): `script/5-2_Sigle_Cell_level_Age-dependent_linear_regression_analysis.ipynb`
 
 6. **Onset analysis**  
-   - Notebook (Single Cell): `script/6_Sigle_Cell_level_Onset_analysis.ipynb`
+   - Notebook (Single Cell): `script/6_Sigle_Cell_level_Onset_analysis_and_Spatiotemporal_Neuron_Microglia_risk_analysis.ipynb`
 
 7. **Pathological pseudotime analysis**  
    - Notebook (Aβ): `script/7-1_Aβ_Pathological_pseudotime_analysis_and_Thal phase analysis.ipynb`  
@@ -190,8 +190,7 @@ For Aβ data:
     - Notebook: `script/10_Microglial_spatial_gradient_making.ipynb`
 
 11. **Spatial single-cell-level risk analysis and spatial transcriptome integration analysis**  
-    - Notebook (Risk Analysis): `script/11-1_Spatiotemporal_Neuron_Microglia_risk_analysis.ipynb`  
-    - Notebook (Transcriptome): `script/11-2_Transcritional_Neuron_Microglia_risk_analysis.ipynb`
+    - Notebook (Transcriptome): `script/11_Transcritional_Neuron_Microglia_risk_analysis.ipynb`
 
 ## Summary of Results
 

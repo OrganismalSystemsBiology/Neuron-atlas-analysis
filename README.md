@@ -147,7 +147,7 @@ Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Raw Neuron Atlas Space. It
 
 #### 1.2 Aβ Deposition Extraction (using 1x low-resolution light-sheet imaging data)
 
-- **Notebook**: `script/1-2_Abeta_extraction.ipynb`
+- **Notebook**: `Abeta_analysis/1-2_Abeta_extraction.ipynb`
 
 This step is equivalent to the method described by Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
 
@@ -158,7 +158,7 @@ Assigns anatomical region annotations compatible with the Allen Brain Atlas spac
 - **Notebook**: `script/2_SCA_registration_and_annotation.ipynb`
 
 For Aβ data:  
-- **Notebook**: `script/2_Abeta_data_registration_to_Neuron_Atlas.ipynb`
+- **Notebook**: `Abeta_analysis/2_Abeta_data_registration_to_Neuron_Atlas.ipynb`
 
 ## Advanced Analyses
 

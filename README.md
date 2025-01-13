@@ -141,7 +141,7 @@ Generates a 50 µm voxel-resolution neuron density image for registration.
 - **Notebook**: `script/1-1-10_Neuron_50um_image_making.ipynb`
 
 **(1.1.11) Neuron-cell-density-based Whole-Brain Registration to Raw Neuron Atlas Space**  
-Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Raw Neuron Atlas Space.
+Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Raw Neuron Atlas Space. It is recommended to use a different folder name for the output compared to version 1.1.7 to avoid confusion.
 
 - **Notebook**: `script/1-1-11_Registration_to_the_raw_Neuron_Atlas_using_Neuron_density_image.ipynb`
 

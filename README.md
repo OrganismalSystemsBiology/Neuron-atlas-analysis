@@ -16,8 +16,6 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - **Data volume:** ~15 TB per whole brain (3 channels)  
 - **Imaging protocol:** Similar to Matsumoto K, et al., *Nature Protocols* (2019). Z-stacks are captured from both dorsal and ventral directions with sufficient overlap. Stitched volumes ensure accurate spatial registration.
 
----
-
 ## Available Atlas Data
 
 - **Neuron Atlas cell data** (xyz coordinates, cell type annotations, atlas annotation IDs):  
@@ -33,8 +31,6 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 
 **Download link:**  
 [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
-
----
 
 ## Available Source Data
 
@@ -54,8 +50,6 @@ Folders named by condition (e.g., `APP_1m`, `APP_3m`) contain data such as `"#4_
 **Download link:**  
 [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
 
----
-
 ## Overview
 
 The primary goal of this code is to identify and analyze all cells expressing neuron-marker (`anti-NeuN`) and microglia-marker (`anti-Iba1`) across the entire brain. We integrate **GPU-based** cell detection and **CPU-based** analyses. Advanced computational methods enable:
@@ -63,8 +57,6 @@ The primary goal of this code is to identify and analyze all cells expressing ne
 - Single-cell and regional-level data integration  
 - Registration to a Neuron Atlas  
 - Advanced spatial statistical analyses  
-
----
 
 ## Main Steps
 
@@ -83,15 +75,13 @@ Based on a modified HDoG filter approach from Matsumoto K, et al., *Nature Proto
 2. Copy the `/src/`, `/param/`, `/script/`, `/Abeta_analysis/` contents from this repository (including `HDoG3D_NeuN_ver3_Rank_simple_3_color.cpp`) to overwrite the existing code.  
 3. Rebuild the project.
 
-**Example command** (indented to avoid nested code blocks):
+**Example command**:
 
     docker compose run dev python script/HDoG_gpu.py \
       param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json \
       --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
 
----
-
-**(1.1.2) GPU-based cell candidate segmentation (Ventral/RV side)**
+**(1.1.2) GPU-based cell candidate segmentation (Ventral/RV side)**  
 Similar to **(1.1.1)**, but applied to ventral-side Z-stack imaging.
 
 **Example command**:
@@ -99,8 +89,6 @@ Similar to **(1.1.1)**, but applied to ventral-side Z-stack imaging.
     docker compose run dev python script/HDoG_gpu.py \
       param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json \
       --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
-
----
 
 **(1.1.3) Merge Local to Global Coordinates**  
 Roughly transforms local stack coordinates into a global whole-brain coordinate system (pre-stitching).
@@ -110,8 +98,6 @@ Roughly transforms local stack coordinates into a global whole-brain coordinate 
     python script/MergeBrain_NeuN.py full \
       param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_merge.json
 
----
-
 **(1.1.4) Cell Nuclei Classification**  
 Classifies cell nuclei based on normalized intensity (min-max filter) and structureness via HDoG.
 
@@ -120,21 +106,15 @@ Classifies cell nuclei based on normalized intensity (min-max filter) and struct
     python script/HDoG_classifier_NeuN.py \
       param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_classify.json
 
----
-
 **(1.1.5) Image and Cell Point Stitching**  
 Uses template matching to determine stitching parameters and applies them to cell coordinates. Finalizes 3D spatial positions of all cell points. Further details are provided in Yoshida SY et al., submitted.
 
 - **Notebook**: `script/stitching_2023/1-1-5_Robust_stitching.ipynb`
 
----
-
 **(1.1.6) Creating a 50 µm Voxel Cell Density Image**  
 Generates a 50 µm voxel-resolution cell density image for registration.
 
 - **Notebook**: `script/1-1-6_Stitched_50um_image_making.ipynb`
-
----
 
 **(1.1.7) Whole-Brain Registration to Raw Neuron Atlas Space**  
 Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Allen Brain Atlas.
@@ -144,8 +124,6 @@ Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Allen Brain Atlas.
     python script/AtlasMapping_stitched_initial_annotation_all.py annotation \
       param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_mapping_R.json -p 20
 
----
-
 **(1.1.8) Rank Filter Normalization**  
 
 **Example command**:
@@ -153,21 +131,15 @@ Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Allen Brain Atlas.
     python script/MultiChannelVerification-rank-simple-dsb.py \
       param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_multichannel-rank.json -p 5
 
----
-
 **(1.1.9) pdfCluster-Based Cell Type Classification**  
 
 - **Notebook**: `script/1-1-9_pdfCluster.ipynb`
-
----
 
 #### 1.2 Aβ Deposition Extraction (using 1x low-resolution light-sheet imaging data)
 
 - **Notebook**: `script/1_Abeta_extraction.ipynb`
 
 This step is equivalent to the method described by Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
-
----
 
 #### 2. Cell Points Registration and Anatomical Annotation
 
@@ -177,8 +149,6 @@ Assigns anatomical region annotations compatible with the Allen Brain Atlas spac
 
 For Aβ data:  
 - **Notebook**: `script/2_Abeta_data_registration_to_Neuron_Atlas.ipynb`
-
----
 
 ## Advanced Analyses
 
@@ -217,8 +187,6 @@ For Aβ data:
     - Notebook (Risk Analysis): `script/12-1_Spatiotemporal_Neuron_Microglia_risk_analysis.ipynb`  
     - Notebook (Transcriptome): `script/12-2_Transcritional_Neuron_Microglia_risk_analysis.ipynb`
 
----
-
 ## Summary of Results
 
 1. **Statistical Analysis Summary (Figs and Extended Data Figs)**  
@@ -234,16 +202,12 @@ For Aβ data:
 
 > **Note:** This code does not currently include source image data from light-sheet imaging.
 
----
-
 ## System Requirements
 
 Tested under the following conditions (versions chosen as required for code compatibility):
 
 - **CentOS Linux release 7.9.2009 (Core)** with Python 3.6.8 or Python 3.9.0 in a virtualenv  
 - **Ubuntu 22.04.4 LTS** with Python 3.7.17 or Python 3.9.19 in a virtualenv  
-
----
 
 ## Citation
 

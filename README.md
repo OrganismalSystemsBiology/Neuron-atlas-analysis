@@ -200,7 +200,8 @@ For spatial transcriptome integration, the relevant portion of the code referenc
 ## Summary of Results
 
 1. **Statistical Analysis Summary (Figs and Extended Data Figs)**  
-   Refer to "Supplementary Table 1. Summary of statical analysis.xlsx" for a detailed breakdown.
+   Refer to "**Supplementary Table 1. Summary of statical analysis.xlsx**" for a detailed breakdown.  
+   *Currently, the statistical results are not included (to be updated soon)—only sample information and Allen Brain Atlas CCFv3 region aberrations have been provided.*
 
 ### Available Analyzed Data for Download
 

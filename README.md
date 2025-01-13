@@ -137,7 +137,7 @@ Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Allen Brain Atlas.
 
 #### 1.2 Aβ Deposition Extraction (using 1x low-resolution light-sheet imaging data)
 
-- **Notebook**: `script/1_Abeta_extraction.ipynb`
+- **Notebook**: `script/1-2_Abeta_extraction.ipynb`
 
 This step is equivalent to the method described by Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
 

@@ -190,7 +190,7 @@ For Aβ data:
     - Notebook: `script/10_Microglial_spatial_gradient_making.ipynb`
 
 11. **Spatial single-cell-level risk analysis and spatial transcriptome integration analysis**  
-    - Notebook (Transcriptome): `script/11_Transcritional_Neuron_Microglia_risk_analysis.ipynb`
+    - Notebook (Transcriptome): `script/11_Transcriptomical_Neuron_Microglia_risk_analysis.ipynb`
 
 ## Summary of Results
 

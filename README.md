@@ -224,7 +224,6 @@ Tested under the following conditions (versions chosen as required for code comp
 
 If you utilize this code in your research, please cite our paper:
 
-# Whole-Brain Single-Neuron Atlas Reveals Microglial Security Hole Accelerating Neuronal Vulnerability
-
+**Whole-Brain Single-Neuron Atlas Reveals Microglial Security Hole Accelerating Neuronal Vulnerability**  
 **Mitani T.T. et al.**  
 *Under review, publicly available on [Research Square](https://doi.org/10.21203/rs.3.rs-5827312/v1).*

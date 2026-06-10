@@ -107,7 +107,7 @@ Classifies cell nuclei based on normalized intensity (min-max filter) and struct
       param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_classify.json
 
 **(1.1.5) Image and Cell Point Stitching**  
-Uses template matching to determine stitching parameters and applies them to cell coordinates. Finalizes 3D spatial positions of all cell points. Further details are provided in Yoshida SY et al., submitted.
+Uses template matching to determine stitching parameters and applies them to cell coordinates. Finalizes 3D spatial positions of all cell points. Further details are provided in [Yoshida SY, et al., *Cell* (2026)](https://doi.org/10.1016/j.cell.2025.12.057).
 
 - **Notebook**: `script/stitching_2023/1-1-5_Robust_stitching.ipynb`
 

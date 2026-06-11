@@ -12,7 +12,7 @@ This repository provides code for whole-brain-scale analyses of cell types (neur
 - Spatial single-cell risk analysis
 
 > [!NOTE]
-> **Updated for revision (2026).** Code for all analyses added during peer review has been deposited in this repository under [`script/revision_2026/`](#revision-2026-additional-analyses). A complete **[Figure-to-Code Mapping](#figure-to-code-mapping)** links every Main and Extended Data Figure to the notebook (or downloadable data) used to generate it.
+> **Currently being updated (revision 2026).** This repository is being updated with the code for analyses added during peer review, which will be collected under [`script/revision_2026/`](#revision-2026-additional-analyses). A **[Figure-to-Code Mapping](#figure-to-code-mapping)** links every Main and Extended Data Figure to the notebook (or downloadable data) used to generate it.
 
 ## Data Specifications
 
@@ -157,7 +157,8 @@ Assigns anatomical region annotations compatible with the Allen Brain Atlas spac
 
 ## Revision (2026) additional analyses
 
-Analyses added in response to peer review are collected under `script/revision_2026/`. Each notebook header states the corresponding Extended Data Figure and its input data path.
+> [!NOTE]
+> **Currently being updated.** The notebooks listed below are being added to `script/revision_2026/`. Each notebook header states the corresponding Extended Data Figure and its input data path.
 
 | Notebook | Analysis | Figure |
 |---|---|---|

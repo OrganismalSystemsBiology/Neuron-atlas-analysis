@@ -3,303 +3,161 @@
 </p>
 
 # Neuron Atlas Analysis
-
 This repository provides code for whole-brain-scale analyses of cell types (neurons, microglia, and cell nuclei) detected from mouse brain imaging data acquired via tissue clearing and **10x** light-sheet microscopy. We perform single-cell-level registration to a Neuron Atlas and implement advanced analyses including:
-
-- Statistical evaluation of regional and single-cell distributions
-- Pathological pseudotime analysis
-- Spatial transcriptome integration
-- Spatial single-cell risk analysis
-
-> [!NOTE]
-> **Currently being updated (revision 2026).** This repository is being updated with the code for analyses added during peer review, which will be collected under [`script/revision_2026/`](#revision-2026-additional-analyses). A **[Figure-to-Code Mapping](#figure-to-code-mapping)** links every Main and Extended Data Figure to the notebook (or downloadable data) used to generate it.
-
+- Statistical evaluation of regional and single-cell distributions  
+- Pathological pseudotime analysis  
+- Spatial transcriptome integration  
+- Spatial single-cell risk analysis  
 ## Data Specifications
-
-- **Voxel resolution:** 0.65 x 0.65 x 2.5 µm (xyz)
-- **ROI size:** 2048 x 2060 (effective 2048 x 2048)
-- **Bit depth:** 16-bit grayscale images
-- **Channels:** Neurons (`anti-NeuN`), Microglia (`anti-Iba1`), Cell nuclei (`BOBO-1`)
-- **Data volume:** ~15 TB per whole brain (3 channels)
+- **Voxel resolution:** 0.65 x 0.65 x 2.5 µm (xyz)  
+- **ROI size:** 2048 x 2060 (effective 2048 x 2048)  
+- **Bit depth:** 16-bit grayscale images  
+- **Channels:** Neurons (`anti-NeuN`), Microglia (`anti-Iba1`), Cell nuclei (`BOBO-1`)  
+- **Data volume:** ~15 TB per whole brain (3 channels)  
 - **Imaging protocol:** Similar to [Matsumoto K, et al., *Nature Protocols* (2019)](https://www.nature.com/articles/s41596-019-0240-9). Z-stacks are captured from both dorsal and ventral directions with sufficient overlap, and the resulting images are stitched to ensure accurate spatial registration.
-
 ## Available Atlas Data
-
-- **Neuron Atlas cell data** (xyz coordinates, cell type annotations, atlas annotation IDs):
+- **Neuron Atlas cell data** (xyz coordinates, cell type annotations, atlas annotation IDs):  
   `"/Neurology/Neuron_Atlas/SCA_Cellome_data_original.bin"`
-- **Averaged template images** for cell density (cell nuclei or neurons), compatible with the Allen Brain Atlas (10 µm scale):
-  `"/Neurology/Neuron_Atlas/iso_50um_R_ver4_nuclear_with_ventricle.tif"` or `"/Neurology/Neuron_Atlas/iso_50um_R_ver4.tif"`
-- **pGM/pWM masks** (practical gray matter and practical white matter, defined by neuron ratio at 10 µm scale):
+- **Averaged template images** for cell density (cell nuclei or neurons), compatible with the Allen Brain Atlas (10 µm scale):  
+  `"/Neurology/Neuron_Atlas/iso_50um_R_ver4_nuclear_with_ventricle.tif"`  
+  or  
+  `"/Neurology/Neuron_Atlas/iso_50um_R_ver4.tif"`
+- **pGM/pWM masks** (practical gray matter and practical white matter, defined by neuron ratio at 10 µm scale):  
   `"/Neurology/pGM_and_pWM_masks/"`
-
-**Download link:** [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
+**Download link:**  
+[Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
 
 ## Available Source Data
-
-Analyzed data can be found under: `"/Neurology/Analyzed_cell_distribution_data/"`
-
+Analyzed data can be found under:  
+`"/Neurology/Analyzed_cell_distribution_data/"`
 Folders named by condition (e.g., `APP_1m`, `APP_3m`) contain data such as `"#4_APPmodel_Abeta_APP1m_1"` (for Aβ data) or `"#4_APPmodel_APP1m_1_2022_1102_1304"` (for cell-type data). These include results after the digitization step. By using these data, you can reproduce later steps with the code in this repository. If you need to rerun **pdfCluster-Based Cell Type Classification** ((1.1.9) below), you can download the source data again.
-
-- An example folder structure for **cell-type analysis**: `"/Neurology/Analyzed_cell_distribution_data/WT_1m/#4_APPmodel_Ctr1m_1_2022_1104_1550/"`
+- An example folder structure for **cell-type analysis**:  
+  `"/Neurology/Analyzed_cell_distribution_data/WT_1m/#4_APPmodel_Ctr1m_1_2022_1104_1550/"`  
   Raw image data (e.g., `ex488_em620_FW`, `ex488_em620_RV`) keep the same folder hierarchy, though most files are placeholders. Under `"/172000/172000_176260/"`, there are some `.bin` files (`200000.bin–200500.bin`) as a reference.
-- An example folder structure for **Aβ analysis**: `"/Neurology/Analyzed_cell_distribution_data/APP_9m/#4_APPmodel_Abeta_APP9m_1/"`
-
-**Download link:** [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
-
-### Data added during revision (2026)
-
-Source images and intermediate results for the peer-review analyses are provided under a separate folder so that the original reproducibility paths above remain unchanged:
-
-- `"/Neurology/Revision_2026/ED22_MAP2/"` — MAP2 physical sections + foci quantification
-- `"/Neurology/Revision_2026/ED24_physical_sections/"` — optical-to-physical section correspondence (matched serial sections, NCC results)
-- `"/Neurology/Revision_2026/ED31_microglia_2D/"` — Iba1 physical sections for gray/white redistribution
-- `"/Neurology/Revision_2026/ED20_StarDist/"` — validation ROIs and F1 summaries
-- `"/Neurology/Revision_2026/ED23_WesternBlot/"` — NeuN western blot source data
-
+- An example folder structure for **Aβ analysis**:  
+  `"/Neurology/Analyzed_cell_distribution_data/APP_9m/#4_APPmodel_Abeta_APP9m_1/"`
+**Download link:**  
+[Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
 ## Overview
-
 The primary goal of this code is to identify and analyze all cells expressing neuron-marker (`anti-NeuN`) and microglia-marker (`anti-Iba1`) across the entire brain. We integrate **GPU-based** cell detection and **CPU-based** analyses. Advanced computational methods enable:
-
-- Single-cell and regional-level data integration
-- Registration to a Neuron Atlas
-- Advanced spatial statistical analyses
-
+- Single-cell and regional-level data integration  
+- Registration to a Neuron Atlas  
+- Advanced spatial statistical analyses  
 ## Main Steps
-
 ### 1. Data Processing
-
 #### 1.1 Cell Digitization (using 10x high-resolution light-sheet imaging data)
-
-**(1.1.1) GPU-based cell candidate segmentation (Dorsal/FW side)**
+**(1.1.1) GPU-based cell candidate segmentation (Dorsal/FW side)**  
 Based on a modified HDoG filter approach from Matsumoto K, et al., *Nature Protocols* (2019) ([CUBIC-informatics](https://github.com/lsb-riken/CUBIC-informatics)).
-- **Code Name**: `HDoG3D_NeuN_ver3_Rank_simple_3_color.cpp`
+- **Code Name**: `HDoG3D_NeuN_ver3_Rank_simple_3_color.cpp`  
 - **Description**: This modified version includes min-max filtering for normalization in the neuron and microglia channels.
-
 **Installation note:**
-1. Install the original [CUBIC-informatics](https://github.com/lsb-riken/CUBIC-informatics) code.
-2. Copy the `/src/`, `/param/`, `/script/`, `/Abeta_analysis/` contents from this repository (including `HDoG3D_NeuN_ver3_Rank_simple_3_color.cpp`) to overwrite the existing code.
+1. Install the original [CUBIC-informatics](https://github.com/lsb-riken/CUBIC-informatics) code.  
+2. Copy the `/src/`, `/param/`, `/script/`, `/Abeta_analysis/` contents from this repository (including `HDoG3D_NeuN_ver3_Rank_simple_3_color.cpp`) to overwrite the existing code.  
 3. Rebuild the project.
-
 **Example command**:
-```
-docker compose run dev python script/HDoG_gpu.py \
-  param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json \
-  --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
-```
-
-**(1.1.2) GPU-based cell candidate segmentation (Ventral/RV side)**
+    docker compose run dev python script/HDoG_gpu.py \
+      param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json \
+      --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
+**(1.1.2) GPU-based cell candidate segmentation (Ventral/RV side)**  
 Similar to **(1.1.1)**, but applied to ventral-side Z-stack imaging.
-
-**(1.1.3) Merge Local to Global Coordinates**
+**Example command**:
+    docker compose run dev python script/HDoG_gpu.py \
+      param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_HDoG_FW.json \
+      --exec build/src/3D/HDoG3D_NeuN_ver3_Rank_simple_3_color
+**(1.1.3) Merge Local to Global Coordinates**  
 Roughly transforms local stack coordinates into a global whole-brain coordinate system (pre-stitching).
-```
-python script/MergeBrain_NeuN.py full \
-  param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_merge.json
-```
-
-**(1.1.4) Cell Nuclei Classification**
+**Example command**:
+    python script/MergeBrain_NeuN.py full \
+      param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_merge.json
+**(1.1.4) Cell Nuclei Classification**  
 Classifies cell nuclei based on normalized intensity (min-max filter) and structureness via HDoG.
-```
-python script/HDoG_classifier_NeuN.py \
-  param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_classify.json
-```
-
-**(1.1.5) Image and Cell Point Stitching**
+**Example command**:
+    python script/HDoG_classifier_NeuN.py \
+      param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_classify.json
+**(1.1.5) Image and Cell Point Stitching**  
 Uses template matching to determine stitching parameters and applies them to cell coordinates. Finalizes 3D spatial positions of all cell points. Further details are provided in [Yoshida SY, et al., *Cell* (2026)](https://doi.org/10.1016/j.cell.2025.12.057).
 - **Notebook**: `script/stitching_2023/1-1-5_Robust_stitching.ipynb`
-
-**(1.1.6) Creating a 50 µm Voxel Cell Nuclear Density Image**
+**(1.1.6) Creating a 50 µm Voxel Cell Nuclear Density Image**  
+Generates a 50 µm voxel-resolution cell density image for registration.
 - **Notebook**: `script/1-1-6_Stitched_50um_image_making.ipynb`
-
-**(1.1.7) Cell-nuclear-density-based Whole-Brain Registration to Raw Neuron Atlas Space (Rough registration)**
-```
-python script/AtlasMapping_stitched_initial_annotation_all.py annotation \
-  param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_mapping_R.json -p 20
-```
-
-**(1.1.8) Rank Filter Normalization**
-```
-python script/MultiChannelVerification-rank-simple-dsb.py \
-  param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_multichannel-rank.json -p 5
-```
-
-**(1.1.9) pdfCluster-Based Cell Type Classification**
+**(1.1.7) Cell-nuclear-density-based Whole-Brain Registration to Raw Neuron Atlas Space (Rough registration)**  
+Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Raw Neuron Atlas Space.
+**Example command**:
+    python script/AtlasMapping_stitched_initial_annotation_all.py annotation \
+      param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_mapping_R.json -p 20
+**(1.1.8) Rank Filter Normalization**  
+**Example command**:
+    python script/MultiChannelVerification-rank-simple-dsb.py \
+      param/Neuronomics/#4_APPmodel_Ctr1m_1_2022_1104_1550/param_multichannel-rank.json -p 5
+**(1.1.9) pdfCluster-Based Cell Type Classification**  
 - **Notebook**: `script/1-1-9_pdfCluster.ipynb`
-
-**(1.1.10) Creating a 50 µm Voxel Neuron Density Image**
+**(1.1.10) Creating a 50 µm Voxel Neuron Density Image**  
+Generates a 50 µm voxel-resolution neuron density image for registration.
 - **Notebook**: `script/1-1-10_Neuron_50um_image_making.ipynb`
-
-**(1.1.11) Neuron-cell-density-based Whole-Brain Registration to Raw Neuron Atlas Space**
+**(1.1.11) Neuron-cell-density-based Whole-Brain Registration to Raw Neuron Atlas Space**  
+Registers the cleared brain (CUBIC-L/CUBIC-R+) to the Raw Neuron Atlas Space. It is recommended to use a different folder name for the output compared to version 1.1.7 to avoid confusion.
 - **Notebook**: `script/1-1-11_Registration_to_the_raw_Neuron_Atlas_using_Neuron_density_image.ipynb`
-
 #### 1.2 Aβ Deposition Extraction (using 1x low-resolution light-sheet imaging data)
 - **Notebook**: `Abeta_analysis/1-2_Abeta_extraction.ipynb`
-
 This step is equivalent to the method described by Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
-
 #### 2. Cell Points Registration and Anatomical Annotation
 Assigns anatomical region annotations compatible with the Allen Brain Atlas space.
 - **Notebook**: `script/2_SCA_registration_and_annotation.ipynb`
-- For Aβ data: `Abeta_analysis/2_Abeta_data_registration_to_Neuron_Atlas.ipynb`
-
+For Aβ data:  
+- **Notebook**: `Abeta_analysis/2_Abeta_data_registration_to_Neuron_Atlas.ipynb`
 ## Advanced Analyses
-
-3. **Calculation of local cell density consistency after registration** — `script/3_local_cell_density_consistency.ipynb`
-4. **Whole-brain regional plots** — `script/4_Whole_brain_regional_plots.ipynb`
-5. **Age-dependent linear regression analysis** — Regional: `script/5-1_Regional_Age-dependent_linear_regression_analysis.ipynb`; Single Cell: `script/5-2_Sigle_Cell_level_Age-dependent_linear_regression_analysis.ipynb`
-6. **Onset analysis** — `script/6_Sigle_Cell_level_Onset_analysis_and_Spatiotemporal_Neuron_Microglia_risk_analysis.ipynb`
-7. **Pathological pseudotime analysis** — Aβ: `script/7-1_Aβ_Pathological_pseudotime_analysis_and_Thal phase analysis.ipynb`; Microglia: `script/7-2_microglial_Pathological_pseudotime_analysis.ipynb`; Microgliosis: `script/7-3_microgliosis(NND)_Pathological_pseudotime_analysis.ipynb`
-8. **Spatial density variation analysis (3D vs. 2D) and linear regression for biomarker 2D recall** — `script/8_3D_vs_2D_analysis.ipynb`
-9. **Microglial 3D morphology and microgliosis analysis** — `script/9_Microglial_3D_morphology_and_microgliosis_analysis.ipynb`
-10. **Microglial spatial gradient mask making using pGM/pWM masks** — `script/10_Microglial_spatial_gradient_making.ipynb`
-11. **Spatial single-cell-level risk analysis and spatial transcriptome integration analysis** — `script/11_Transcriptomical_Neuron_Microglia_risk_analysis.ipynb`
-    Relies on the database from [Shi et al., *Nature* (2023)](https://www.nature.com/articles/s41586-023-06569-5) ([SCP1830](https://singlecell.broadinstitute.org/single_cell/study/SCP1830); [Zenodo](https://doi.org/10.5281/zenodo.8327576)); references [mCNS-atlas](https://github.com/wanglab-broad/mCNS-atlas).
-
+3. **Calculation of local cell density consistency after registration**  
+   - Notebook: `script/3_local_cell_density_consistency.ipynb`
+4. **Whole-brain regional plots**  
+   - Notebook: `script/4_Whole_brain_regional_plots.ipynb`
+5. **Age-dependent linear regression analysis**  
+   - Notebook (Regional): `script/5-1_Regional_Age-dependent_linear_regression_analysis.ipynb`  
+   - Notebook (Single Cell): `script/5-2_Sigle_Cell_level_Age-dependent_linear_regression_analysis.ipynb`
+6. **Onset analysis**  
+   - Notebook (Single Cell): `script/6_Sigle_Cell_level_Onset_analysis_and_Spatiotemporal_Neuron_Microglia_risk_analysis.ipynb`
+7. **Pathological pseudotime analysis**  
+   - Notebook (Aβ): `script/7-1_Aβ_Pathological_pseudotime_analysis_and_Thal phase analysis.ipynb`  
+   - Notebook (Microglia): `script/7-2_microglial_Pathological_pseudotime_analysis.ipynb`  
+   - Notebook (Microgliosis): `script/7-3_microgliosis(NND)_Pathological_pseudotime_analysis.ipynb`
+8. **Spatial density variation analysis (3D vs. 2D) and linear regression for biomarker 2D recall**  
+   - Notebook: `script/8_3D_vs_2D_analysis.ipynb`
+9. **Microglial 3D morphology and microgliosis analysis**  
+    - Notebook: `script/9_Microglial_3D_morphology_and_microgliosis_analysis.ipynb`
+10. **Microglial spatial gradient mask making using pGM/pWM masks and intermediate segmentations**  
+    - Notebook: `script/10_Microglial_spatial_gradient_making.ipynb`
+11. **Spatial single-cell-level risk analysis and spatial transcriptome integration analysis**  
+This code relies on the database from [Shi et al., *Nature* (2023)](https://www.nature.com/articles/s41586-023-06569-5).  
+You can download the datasets from the [Single Cell Portal (SCP1830)](https://singlecell.broadinstitute.org/single_cell/study/SCP1830) and from [Zenodo](https://doi.org/10.5281/zenodo.8327576).  
+For spatial transcriptome integration, the relevant portion of the code references [mCNS-atlas](https://github.com/wanglab-broad/mCNS-atlas).
+- **Notebook (Transcriptome):** `script/11_Transcriptomical_Neuron_Microglia_risk_analysis.ipynb`
 ## Revision (2026) additional analyses
-
-> [!NOTE]
-> **Currently being updated.** The notebooks listed below are being added to `script/revision_2026/`. Each notebook header states the corresponding Extended Data Figure and its input data path.
-
-| Notebook | Analysis | Figure |
-|---|---|---|
-| `script/revision_2026/ED18_permutation_test.ipynb` | Permutation testing for fiber-tract / layer-6b neuronal-decrease regions | ED 18b,d |
-| `script/revision_2026/ED19ab_registration_NCC_validation.ipynb` | Registration consistency (NCC within tissue masks; Levene's test) | ED 19a,b |
-| `script/revision_2026/ED19cd_raw_volume_correction.ipynb` | Raw vs atlas-corrected regional volume (CLA) | ED 19c,d |
-| `script/revision_2026/ED20_StarDist_segmentation_validation.ipynb` | Independent StarDist segmentation validation of NeuN-increase regions | ED 20a,b,d |
-| `script/revision_2026/ED22_MAP2_2Dphysical.ipynb` | MAP2 immunohistochemistry quantification on physical sections (foci + enrichment) | ED 22 |
-| `script/revision_2026/ED24ad_optical_to_physical_mapping.ipynb` | Optical-to-physical section correspondence mapping | ED 24a-d |
-| `script/revision_2026/ED24_ED31_2Dphysical_routine.ipynb` | Physical-section routine: correspondence statistics & microglial redistribution recovery | ED 24e-h, ED 31 |
-| `script/revision_2026/ED26-28_2D_multisection_sampling_recall.ipynb` | Practical multi-section 2D sampling (Protocol 1/2) and Average 2D Recall (App, WT, VCP) | ED 26–28 |
-| `script/revision_2026/ED29_neuronal_loss_effectsize.ipynb` | Effect-size distribution of App-specific neuronal decrease | ED 29a,b |
-| `script/revision_2026/ED39_microglia_aggregation_counting.ipynb` | Iba1-merging / aggregated-microglia counting validation | ED 39 |
-
-## Figure-to-Code Mapping
-
-🟡 = primary code provided in this repository for peer review; 🟤 = provided as resources allow. "Google Drive (data)" indicates the panel is a representative image / 3D rendering whose source is downloadable rather than a code product.
-
-<details>
-<summary><b>Main Figures</b> (click to expand)</summary>
-
-| | Figure | Analysis | Code / Data |
-|:--:|---|---|---|
-|  | Figure 1 | Whole brain analysis scehme | Google Drive (data) |
-|  | Figure 2a | Multimodal Neuron Atlas scheme | Google Drive (data) |
-|  | Figure 2b-d | Multimodal Neuron Atlas analysis | `script/Fig.2 Multimodal Atlas.ipynb` |
-|  | Figure 2e,f | Whole brain regional plot of WT | `script/Fig.2 Whole brain plot.ipynb` |
-|  | Figure 3a-c, e-g | Abeta analysis | `script/Fig.3 Abeta pseudotime analysis.ipynb` |
-|  | Figure 3d | Abeta analysis (representative images) | Google Drive (data) |
-|  | Figure 4a,b,e,f | Neuron and Microglia analysis | `script/Fig3,4,5. Whole brain plot and significant region extraction.ipynb` |
-|  | Figure 4c,d | Histology visualization of Neuronal loss regions | `script/Routine_Zoomout_image_making NeuN ds4.ipynb` |
-|  | Figure 5 | Microglia redistribution analysis | `script/Fig.6 Microglia gradient analysis.ipynb` |
-|  | Figure 6a-c | Spatial single-cell risk analysis | `script/Fig.7 Cellome-onset analysis.ipynb` |
-|  | Figure 6d,e | Histology visualization of Neuronal loss and microglial changed regions | `script/Routine_Zoomout_image_making NeuN ds4.ipynb` |
-|  | Figure 6f,g | Integration analysis of spatial transcriptome data and lesion data | `script/STARmap_atlas_analysis_ds1.ipynb` |
-|  | Figure 7 | Concept of "Microglial Security Hole" | Google Drive (data) |
-
-</details>
-
-<details>
-<summary><b>Extended Data Figures</b> (click to expand)</summary>
-
-| | Figure | Analysis | Code / Data |
-|:--:|---|---|---|
-|  | Extended Data Figure 1 | Whole-brain cell profiling scheme | `NA` |
-|  | Extended Data Figure 2 | dMOVIE scheme | `NA` |
-|  | Extended Data Figure 3 | Neuron Atlas validation | `script/Extended Data Fig.2 Registration NCC.ipynb` |
-|  | Extended Data Figure 4a,b | PDFcluster paramater optimization | `script/PDF-cluster parameter optimization code-NeuN and Iba1.ipynb` |
-|  | Extended Data Figure 4c | Cell counts validation | `script/Extended Data Fig.3 Cell-type count accuracy.ipynb` |
-| 🟤 | Extended Data Figure 5 | Integration analysis between 3D IHC and 2D ST data  | `script/Rebuttal ST and IHC correlation  ds1.ipynb` |
-|  | Extended Data Figure 6-10 | Annotations of whole-brain reginal plot | `script/Whole brain plot annotation making.ipynb` |
-|  | Extended Data Figure 11 | Analysis for Neuron-increased regions  | `script/Rebuttal for neuron increase regions ds4.ipynb` |
-|  | Extended Data Figure 12 | Additional Abeta analysis | `script/Abeta heatmap and Whole brain map.ipynb` |
-| 🟤 | Extended Data Figure 13a Histology | Zoomout histology visualization of App (corresponding to Fig.4c) | `script/Rebuttal Zoomout image making fixed NeuN (0.65um 1mai).ipynb` |
-|  | Extended Data Figure 13a Density | Density images visualization of App (corresponding to Fig.4c) | `script/Routine_Zoomout_image_making NeuN density ds4.ipynb` |
-|  | Extended Data Figure 13b-e | Regional & temporal analysis of App (corresponding to Fig.4c) | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 14a Histology | Zoomout histology visualization of WT (corresponding to Fig.4c) | `script/Rebuttal Zoomout image making fixed NeuN (0.65um 1mai).ipynb` |
-|  | Extended Data Figure 14a Density | Density images visualization of WT (corresponding to Fig.4c) | `script/Routine_Zoomout_image_making NeuN density ds4.ipynb` |
-|  | Extended Data Figure 14b-e | Regional & temporal analysis of WT (corresponding to Fig.4c) | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 15a Histology | Zoomout histology visualization of App (corresponding to Fig.4d) | `script/Rebuttal Zoomout image making fixed NeuN (0.65um 1mai).ipynb` |
-|  | Extended Data Figure 15a Density | Density images visualization of App (corresponding to Fig.4d) | `script/Routine_Zoomout_image_making NeuN density ds4.ipynb` |
-|  | Extended Data Figure 15b-e | Regional & temporal analysis of App (corresponding to Fig.4d) | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 16a Histology | Zoomout histology visualization of WT (corresponding to Fig.4d) | `script/Rebuttal Zoomout image making fixed NeuN (0.65um 1mai).ipynb` |
-|  | Extended Data Figure 16a Density | Density images visualization of WT (corresponding to Fig.4d) | `script/Routine_Zoomout_image_making NeuN density ds4.ipynb` |
-|  | Extended Data Figure 16b-e | Regional & temporal analysis of WT (corresponding to Fig.4d) | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 17a,b 2D section | 2D histology visualization (corresponding to Fig.4c,d) | `script/Routine_Zoomout_image_making NeuN ds4.ipynb` |
-|  | Extended Data Figure 17a,b 3D reconst | 3D histology visualization (corresponding to Fig.4c,d) | Google Drive (data) |
-|  | Extended Data Figure 18a,c | Regional graph visualization of fiber tract and 6b regions | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-| 🟡 | Extended Data Figure 18b,d | Permutation validation for fiber tract and 6b regions | `script/revision_2026/ED18_permutation_test.ipynb` |
-| 🟡 | Extended Data Figure 19a,b | Validation of registration using tissue masks | `script/revision_2026/ED19ab_registration_NCC_validation.ipynb` |
-| 🟡 | Extended Data Figure 19c,d | Raw volume analysis | `script/revision_2026/ED19cd_raw_volume_correction.ipynb` |
-| 🟡 | Extended Data Figure 20a,b,d | Validation of Neuron-increased regions | `script/revision_2026/ED20_StarDist_segmentation_validation.ipynb` |
-|  | Extended Data Figure 20c | 3D reconstruction of Neuron-increased regions  | Google Drive (data) |
-|  | Extended Data Figure 20e,f | Statistical analysis for Neuron-increased regions  | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 21 | Whole-brain analysis validation by VCP and TMT models | `script/Fig3,4,5. Whole brain plot and significant region extraction.ipynb` |
-| 🟡 | Extended Data Figure 22 | MAP2 analysis using 2D physical sections | `script/revision_2026/ED22_MAP2_2Dphysical.ipynb` |
-|  | Extended Data Figure 23a,b | Western blot analysis | Google Drive (data) |
-| 🟤 | Extended Data Figure 23c,d | Neuronal counts analysis and effect size simulation | `script/Fig3,4,5. Whole brain plot and significant region extraction.ipynb` |
-| 🟡 | Extended Data Figure 24a-d | 2D physical histology to 3D mapping analysis | `script/revision_2026/ED24ad_optical_to_physical_mapping.ipynb` |
-| 🟡 | Extended Data Figure 24e-h | Statisistical analysis for 2D physical histology to 3D mapping | `script/revision_2026/ED24_ED31_2Dphysical_routine.ipynb` |
-|  | Extended Data Figure 25a-g | 2D emulation using single-section data from 3D | `script/Fig.5 2D simulation of staging.ipynb` |
-|  | Extended Data Figure 25f Cellome plot | Whole-brain cellome plot | `script/test-Fig.5 Disease Cellome plots.ipynb` |
-| 🟡 | Extended Data Figure 26a-e | 2D emulation using time-course App model data | `script/revision_2026/ED26-28_2D_multisection_sampling_recall.ipynb` |
-| 🟡 | Extended Data Figure 27 | 2D emulation using WT data | `script/revision_2026/ED26-28_2D_multisection_sampling_recall.ipynb` |
-| 🟡 | Extended Data Figure 28 | 2D emulation using App and VCP data | `script/revision_2026/ED26-28_2D_multisection_sampling_recall.ipynb` |
-| 🟡 | Extended Data Figure 29a,b | Regional analysis for effect size of neuronal loss in the App model | `script/revision_2026/ED29_neuronal_loss_effectsize.ipynb` |
-|  | Extended Data Figure 29c | Regional graph of App-specific neuronal decrease regions | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 30 | Practical white-matter validation using fiber tract data | `script/Fig.6 Microglia gradient analysis.ipynb` |
-| 🟡 | Extended Data Figure 31 | 2D physical slice data vaidation for microglial redistribution | `script/revision_2026/ED24_ED31_2Dphysical_routine.ipynb` |
-|  | Extended Data Figure 32a Histology | Zoomout NeuN histology visualization of App (corresponding to Fig.6d) | `script/Rebuttal Zoomout image making fixed NeuN (0.65um 1mai).ipynb` |
-|  | Extended Data Figure 32a Density | Neuronal Density images visualization of App (corresponding to Fig.6d) | `script/Routine_Zoomout_image_making NeuN density ds4.ipynb` |
-|  | Extended Data Figure 32b-e | Regional & temporal neuronal analysis of App (corresponding to Fig.6d) | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 33a Histology | Zoomout Iba1 histology visualization of App (corresponding to Fig.6d) | `script/Rebuttal Zoomout image making fixed Iba1 (0.65um 1mai).ipynb` |
-|  | Extended Data Figure 33a Density | Microglial Density images visualization of App (corresponding to Fig.6d) | `script/Routine_Zoomout_image_making NeuN density ds4.ipynb` |
-|  | Extended Data Figure 33b-e | Regional & temporal microglial analysis of App (corresponding to Fig.6d) | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 34a Histology | Zoomout NeuN histology visualization of App (corresponding to Fig.6e) | `script/Rebuttal Zoomout image making fixed NeuN (0.65um 1mai).ipynb` |
-|  | Extended Data Figure 34a Density | Neuronal Density images visualization of App (corresponding to Fig.6e) | `script/Routine_Zoomout_image_making NeuN density ds4.ipynb` |
-|  | Extended Data Figure 34b-e | Regional & temporal neuronal analysis of App (corresponding to Fig.6e) | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 35a Histology | Zoomout Iba1 histology visualization of App (corresponding to Fig.6e) | `script/Rebuttal Zoomout image making fixed Iba1 (0.65um 1mai).ipynb` |
-|  | Extended Data Figure 35a Density | Microglial Density images visualization of App (corresponding to Fig.6e) | `script/Routine_Zoomout_image_making NeuN density ds4.ipynb` |
-|  | Extended Data Figure 35b-e | Regional & temporal microglial analysis of App (corresponding to Fig.6e) | `script/Raw cell number and ratio visualization Fig4,6.ipynb` |
-|  | Extended Data Figure 36a,b 2D section | 2D histology visualization (corresponding to Fig.4c,d) | `script/Routine_Zoomout_image_making NeuN ds4.ipynb` |
-|  | Extended Data Figure 36a,b 3D reconst | 3D histology visualization (corresponding to Fig.4c,d) | Google Drive (data) |
-|  | Extended Data Figure 37a-c | Whole-brain microgliosis analysis | `script/Extended Data Fig.5  Whole-brain Migliosis analysis.ipynb` |
-|  | Extended Data Figure 37d-j | Relationship analysis between microgliosis, Abeta, microglial loss | `script/Extended Data Fig.6 Abeta to Microglia loss.ipynb` |
-|  | Extended Data Figure 38 | Analysis for coexistence of  microgliosis and microglial loss | `script/Extended Data Fig.5  Microglia Morphology analysis and Neighbor analysis.ipynb` |
-| 🟡 | Extended Data Figure 39 | Validation for microglial aggregation (Iba1 merging) | `script/revision_2026/ED39_microglia_aggregation_counting.ipynb` |
-
-</details>
-
+*The following analyses were performed in response to peer review. The corresponding code is currently being added under `script/revision_2026/`, and any associated data will be placed under `Revision_2026/` on the [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ) linked above.*
+- Permutation-based validation of fiber-tract and layer-6b neuronal-decrease regions (Extended Data Fig. 18)
+- Registration-consistency validation using normalized cross-correlation within tissue masks (Extended Data Fig. 19)
+- Raw vs. atlas-corrected regional volume analysis (Extended Data Fig. 19)
+- Independent segmentation validation (StarDist) of neuron-increase regions (Extended Data Fig. 20)
+- MAP2 immunohistochemistry analysis on 2D physical sections (Extended Data Fig. 22)
+- Optical-to-physical section correspondence mapping (Extended Data Fig. 24)
+- Practical multi-section 2D sampling and 2D-recall analysis (App, WT, and VCP models) (Extended Data Figs. 26–28)
+- Effect-size analysis of App-specific neuronal decrease (Extended Data Fig. 29)
+- 2D physical-section validation of microglial redistribution (Extended Data Fig. 31)
+- Validation of microglial aggregation under Iba1 signal merging (Extended Data Fig. 39)
 ## Summary of Results
-
-1. **Statistical Analysis Summary (Figs and Extended Data Figs)** — Refer to "**Supplementary Table 1. Summary of statistical analysis.xlsx**" for a detailed breakdown, including the per-figure statistical tests, sample information, and Allen Brain Atlas CCFv3 region annotations.
-
+1. **Statistical Analysis Summary (Figs and Extended Data Figs)**  
+   Refer to "**Supplementary Table 1. Summary of statical analysis.xlsx**" for a detailed breakdown.  
+   *Currently, the statistical results are not included (to be updated soon)—only sample information and Allen Brain Atlas CCFv3 region aberrations have been provided.*
 ### Available Analyzed Data for Download
-
-- B6J Wild-type (8 weeks old, 1,3,5,7,9,12 months, male), APPNL-G-F model (1,3,5,7,9 months, male), VCP model (8-9 weeks old, male), and TMT model (8 weeks old, male) cell data (xyz, cell type, atlas annotation ID) and template images used for registration.
-- Aβ plaque data (xyz coordinates, plaque size, plaque intensity, atlas annotation ID) for B6J WT and APPNL-G-F model (1,3,5,7,9 months, male), following Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
-
-**Please download from:** [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
-
+- B6J Wild-type (8 weeks old, 1,3,5,7,9,12 months, male), APPNL-G-F model (1,3,5,7,9 months, male), VCP model (8-9 weeks old, male), and TMT model (8 weeks old, male) cell data (xyz, cell type, atlas annotation ID) and template images used for registration.  
+- Aβ plaque data (xyz coordinates, plaque size, plaque intensity, atlas annotation ID) for B6J WT (1,3,5,7,9 months, male) and APPNL-G-F model (1,3,5,7,9 months, male), following methods described in Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
+**Please download from:**  
+[Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
 > **Note:** This code does not currently include source image data from light-sheet imaging.
-
 ## System Requirements
-
 Tested under the following conditions (versions chosen as required for code compatibility):
-- **CentOS Linux release 7.9.2009 (Core)** with Python 3.6.8 or Python 3.9.0 in a virtualenv
-- **Ubuntu 22.04.4 LTS** with Python 3.7.17 or Python 3.9.19 in a virtualenv
-
-## Data availability
-
-The raw image data supporting the findings of this study are available upon request. The Neuron Atlas data and the digitized cell-point data from all samples can be downloaded from the [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ) linked above.
-
-## Code availability
-
-All custom code used for the whole-brain analyses, including the analyses added during revision (`script/revision_2026/`), is available in this repository: https://github.com/OrganismalSystemsBiology/Neuron-atlas-analysis . A per-figure index is provided in the [Figure-to-Code Mapping](#figure-to-code-mapping) above.
-
+- **CentOS Linux release 7.9.2009 (Core)** with Python 3.6.8 or Python 3.9.0 in a virtualenv  
+- **Ubuntu 22.04.4 LTS** with Python 3.7.17 or Python 3.9.19 in a virtualenv  
 ## Citation
-
 If you utilize this code in your research, please cite our paper:
-
-**Whole-Brain Single-Neuron Atlas Reveals Microglial Security Hole Accelerating Neuronal Vulnerability**
-**Mitani T.T. et al.**
+**Whole-Brain Single-Neuron Atlas Reveals Microglial Security Hole Accelerating Neuronal Vulnerability**  
+**Mitani T.T. et al.**  
 *Under review, publicly available on [Research Square](https://doi.org/10.21203/rs.3.rs-5827312/v1).*

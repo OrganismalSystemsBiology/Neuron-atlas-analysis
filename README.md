@@ -132,16 +132,16 @@ For spatial transcriptome integration, the relevant portion of the code referenc
 - **Notebook (Transcriptome):** `script/11_Transcriptomical_Neuron_Microglia_risk_analysis.ipynb`
 ## Revision (2026) additional analyses
 *The following analyses were performed in response to peer review. The corresponding code is currently being added under `script/revision_2026/`, and any associated data will be placed under `Revision_2026/` on the [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ) linked above.*
-- Permutation-based validation of fiber-tract and layer-6b neuronal-decrease regions (Extended Data Fig. 18)
-- Registration-consistency validation using normalized cross-correlation within tissue masks (Extended Data Fig. 19)
-- Raw vs. atlas-corrected regional volume analysis (Extended Data Fig. 19)
-- Independent segmentation validation (StarDist) of neuron-increase regions (Extended Data Fig. 20)
-- MAP2 immunohistochemistry analysis on 2D physical sections (Extended Data Fig. 22)
-- Optical-to-physical section correspondence mapping (Extended Data Fig. 24)
-- Practical multi-section 2D sampling and 2D-recall analysis (App, WT, and VCP models) (Extended Data Figs. 26–28)
-- Effect-size analysis of App-specific neuronal decrease (Extended Data Fig. 29)
-- 2D physical-section validation of microglial redistribution (Extended Data Fig. 31)
-- Validation of microglial aggregation under Iba1 signal merging (Extended Data Fig. 39)
+- Permutation-based validation of fiber-tract and layer-6b neuronal-decrease regions (Extended Data Fig. 18) — `ED18_permutation_validation_fibertract_layer6b.ipynb`
+- Registration-consistency validation using normalized cross-correlation within tissue masks (Extended Data Fig. 19) — `ED19_registration_consistency_NCC.ipynb`
+- Raw vs. atlas-corrected regional volume analysis (Extended Data Fig. 19) — `ED19_raw_vs_atlas_corrected_volume.ipynb`
+- Independent segmentation validation (StarDist) of neuron-increase regions (Extended Data Fig. 20) — `ED20_StarDist_segmentation_validation.ipynb`
+- MAP2 immunohistochemistry analysis on 2D physical sections (Extended Data Fig. 22) — `ED22_MAP2_2D_physical_section.ipynb`
+- Optical-to-physical section correspondence mapping (Extended Data Fig. 24) — `ED24_optical_to_physical_section_mapping.ipynb`
+- Practical multi-section 2D sampling and 2D-recall analysis (App, WT, and VCP models) (Extended Data Figs. 26–28) — `ED26-28_2D_multisection_sampling_recall.ipynb`
+- Effect-size analysis of App-specific neuronal decrease (Extended Data Fig. 29) — `ED29_effectsize_neuronal_decrease.ipynb`
+- 2D physical-section validation of microglial redistribution (Extended Data Fig. 31) — `ED31_microglia_redistribution_2D_physical.ipynb`
+- Validation of microglial aggregation under Iba1 signal merging (Extended Data Fig. 39) — `ED39_microglia_aggregation_Iba1_merging.ipynb`
 ## Summary of Results
 1. **Statistical Analysis Summary (Figs and Extended Data Figs)**  
    Refer to "**Supplementary Table 1. Summary of statical analysis.xlsx**" for a detailed breakdown.  

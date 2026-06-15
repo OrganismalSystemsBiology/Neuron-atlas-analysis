@@ -131,17 +131,23 @@ You can download the datasets from the [Single Cell Portal (SCP1830)](https://si
 For spatial transcriptome integration, the relevant portion of the code references [mCNS-atlas](https://github.com/wanglab-broad/mCNS-atlas).
 - **Notebook (Transcriptome):** `script/11_Transcriptomical_Neuron_Microglia_risk_analysis.ipynb`
 ## Revision (2026) additional analyses
-*The following analyses were performed in response to peer review. The corresponding code is currently being added under `script/revision_2026/`, and any associated data will be placed under `Revision_2026/` on the [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ) linked above.*
-- Permutation-based validation of fiber-tract and layer-6b neuronal-decrease regions (Extended Data Fig. 18) — `ED18_permutation_validation_fibertract_layer6b.ipynb`
-- Registration-consistency validation using normalized cross-correlation within tissue masks (Extended Data Fig. 19) — `ED19_registration_consistency_NCC.ipynb`
-- Raw vs. atlas-corrected regional volume analysis (Extended Data Fig. 19) — `ED19_raw_vs_atlas_corrected_volume.ipynb`
-- Independent segmentation validation (StarDist) of neuron-increase regions (Extended Data Fig. 20) — `ED20_StarDist_segmentation_validation.ipynb`
-- MAP2 immunohistochemistry analysis on 2D physical sections (Extended Data Fig. 22) — `ED22_MAP2_2D_physical_section.ipynb`
-- Optical-to-physical section correspondence mapping (Extended Data Fig. 24) — `ED24_optical_to_physical_section_mapping.ipynb`
-- Practical multi-section 2D sampling and 2D-recall analysis (App, WT, and VCP models) (Extended Data Figs. 26–28) — `ED26-28_2D_multisection_sampling_recall.ipynb`
-- Effect-size analysis of App-specific neuronal decrease (Extended Data Fig. 29) — `ED29_effectsize_neuronal_decrease.ipynb`
-- 2D physical-section validation of microglial redistribution (Extended Data Fig. 31) — `ED31_microglia_redistribution_2D_physical.ipynb`
-- Validation of microglial aggregation under Iba1 signal merging (Extended Data Fig. 39) — `ED39_microglia_aggregation_Iba1_merging.ipynb`
+The following analyses were added in response to peer review. The code is available in this repository under `script/revision_2026/`. These notebooks read the region-level intermediate results produced by the pipeline above; no additional data were deposited externally.
+
+| Notebook (`script/revision_2026/`) | Analysis | Figure |
+|---|---|---|
+| `ED5_3D_IHC_vs_2D_ST_spatial_comparison.ipynb` | Spatial comparison of 3D IHC vs 2D ST distributions for PV/ChAT/TH (nearest-neighbor distance; odds ratio) | Ext. Data Fig. 5b,c |
+| `ED18_permutation_validation_fibertract_layer6b.ipynb` | Permutation validation of fiber-tract / layer-6b neuronal decrease | Ext. Data Fig. 18b,d |
+| `ED19_registration_consistency_NCC.ipynb` | Registration consistency (NCC within a global tissue mask; Levene's test) | Ext. Data Fig. 19a,b |
+| `ED19_raw_vs_atlas_corrected_volume.ipynb` | Raw vs. atlas-corrected regional volume and its effect on neuronal-density detection | Ext. Data Fig. 19c,d |
+| `ED20_StarDist_segmentation_validation.ipynb` | Independent StarDist segmentation validation (F1 vs. manual annotation) | Ext. Data Fig. 20a,b,d |
+| `ED22_MAP2_2D_physical_section.ipynb` | MAP2-dropout detection on 2D physical sections, App-vs-WT density, and enrichment | Ext. Data Fig. 22d,e |
+| `ED23cd_neuronal_count_and_power_analysis.ipynb` | Normalized NeuN+ counts (WT vs. App) and required-sample-size power analysis | Ext. Data Fig. 23c,d |
+| `ED24_optical_to_physical_section_mapping.ipynb` | Optical-to-physical section correspondence (registration, cell-point assignment, NCC) | Ext. Data Fig. 24 |
+| `ED26-28_2D_multisection_sampling_recall.ipynb` | Practical 2D sampling: density correlation, CV, ≤10% error, 2D recall, recall–CV regression | Ext. Data Figs. 26–28 |
+| `ED29_effectsize_neuronal_decrease.ipynb` | Effect-size distribution of App-specific neuronal decrease | Ext. Data Fig. 29a,b |
+| `ED31_microglia_redistribution_2D_physical.ipynb` | Microglial redistribution validated on 2D physical serial sections (Rs = 0.881; recovery vs. sampling) | Ext. Data Fig. 31a-c |
+
+
 ## Summary of Results
 1. **Statistical Analysis Summary (Figs and Extended Data Figs)**  
    Refer to "**Supplementary Table 1. Summary of statical analysis.xlsx**" for a detailed breakdown.  
@@ -160,4 +166,4 @@ Tested under the following conditions (versions chosen as required for code comp
 If you utilize this code in your research, please cite our paper:
 **Whole-Brain Single-Neuron Atlas Reveals Microglial Security Hole Accelerating Neuronal Vulnerability**  
 **Mitani T.T. et al.**  
-*Under revision, publicly available on [Research Square](https://doi.org/10.21203/rs.3.rs-5827312/v1).*
+*Under review, publicly available on [Research Square](https://doi.org/10.21203/rs.3.rs-5827312/v1).*

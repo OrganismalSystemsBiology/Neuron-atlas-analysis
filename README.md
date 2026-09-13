@@ -162,6 +162,9 @@ The following analyses were added in response to peer review. The code is availa
 Tested under the following conditions (versions chosen as required for code compatibility):
 - **CentOS Linux release 7.9.2009 (Core)** with Python 3.6.8 or Python 3.9.0 in a virtualenv  
 - **Ubuntu 22.04.4 LTS** with Python 3.7.17 or Python 3.9.19 in a virtualenv  
+
+Installation takes approximately 30 minutes. Running the provided demo workflows takes approximately 5 hours in total. These are approximate estimates and may vary with hardware.
+
 ## Citation
 If you utilize this code in your research, please cite our paper:
 **Whole-Brain Single-Neuron Atlas Reveals Microglial Security Hole Accelerating Neuronal Vulnerability**  

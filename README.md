@@ -133,25 +133,25 @@ For spatial transcriptome integration, the relevant portion of the code referenc
 ## Revision (2026) additional analyses
 The following analyses were added in response to peer review. The code is available in this repository under `script/revision_2026/`. These notebooks read the region-level intermediate results produced by the pipeline above; no additional data were deposited externally.
 
+Figure numbers in the table follow the current manuscript; notebook filenames retain their original numbering.
+
 | Notebook (`script/revision_2026/`) | Analysis | Figure |
 |---|---|---|
 | `ED5_3D_IHC_vs_2D_ST_spatial_comparison.ipynb` | Spatial comparison of 3D IHC vs 2D ST distributions for PV/ChAT/TH (nearest-neighbor distance; odds ratio) | Ext. Data Fig. 5b,c |
 | `ED18_permutation_validation_fibertract_layer6b.ipynb` | Permutation validation of fiber-tract / layer-6b neuronal decrease | Ext. Data Fig. 18b,d |
-| `ED19_registration_consistency_NCC.ipynb` | Registration consistency (NCC within a global tissue mask; Levene's test) | Ext. Data Fig. 19a,b |
-| `ED19_raw_vs_atlas_corrected_volume.ipynb` | Raw vs. atlas-corrected regional volume and its effect on neuronal-density detection | Ext. Data Fig. 19c,d |
-| `ED20_StarDist_segmentation_validation.ipynb` | Independent StarDist segmentation validation (F1 vs. manual annotation) | Ext. Data Fig. 20a,b,d |
-| `ED22_MAP2_2D_physical_section.ipynb` | MAP2-dropout detection on 2D physical sections, App-vs-WT density, and enrichment | Ext. Data Fig. 22d,e |
-| `ED23cd_neuronal_count_and_power_analysis.ipynb` | Normalized NeuN+ counts (WT vs. App) and required-sample-size power analysis | Ext. Data Fig. 23c,d |
-| `ED24_optical_to_physical_section_mapping.ipynb` | Optical-to-physical section correspondence (registration, cell-point assignment, NCC) | Ext. Data Fig. 24 |
-| `ED26-28_2D_multisection_sampling_recall.ipynb` | Practical 2D sampling: density correlation, CV, ≤10% error, 2D recall, recall–CV regression | Ext. Data Figs. 26–28 |
-| `ED29_effectsize_neuronal_decrease.ipynb` | Effect-size distribution of App-specific neuronal decrease | Ext. Data Fig. 29a,b |
-| `ED31_microglia_redistribution_2D_physical.ipynb` | Microglial redistribution validated on 2D physical serial sections (Rs = 0.881; recovery vs. sampling) | Ext. Data Fig. 31a-c |
+| `ED19_registration_consistency_NCC.ipynb` | Registration consistency (NCC within a global tissue mask; Levene's test) | Ext. Data Fig. 20a,b |
+| `ED19_raw_vs_atlas_corrected_volume.ipynb` | Raw vs. atlas-corrected regional volume and its effect on neuronal-density detection | Ext. Data Fig. 20c,d |
+| `ED20_StarDist_segmentation_validation.ipynb` | Independent StarDist segmentation validation (F1 vs. manual annotation) | Ext. Data Fig. 21a,b,d |
+| `ED22_MAP2_2D_physical_section.ipynb` | MAP2-dropout detection on 2D physical sections, App-vs-WT density, and enrichment | Ext. Data Fig. 24d,e |
+| `ED23cd_neuronal_count_and_power_analysis.ipynb` | Normalized NeuN+ counts (WT vs. App) and required-sample-size power analysis | Ext. Data Fig. 25c,d |
+| `ED24_optical_to_physical_section_mapping.ipynb` | Optical-to-physical section correspondence (registration, cell-point assignment, NCC) | Ext. Data Fig. 26 |
+| `ED26-28_2D_multisection_sampling_recall.ipynb` | Practical 2D sampling: density correlation, CV, ≤10% error, 2D recall, recall–CV regression | Ext. Data Figs. 28–30 |
+| `ED29_effectsize_neuronal_decrease.ipynb` | Effect-size distribution of App-specific neuronal decrease | Ext. Data Fig. 31a,b |
+| `ED31_microglia_redistribution_2D_physical.ipynb` | Microglial redistribution validated on 2D physical serial sections (Rs = 0.881; recovery vs. sampling) | Ext. Data Fig. 33a-c |
 
 
 ## Summary of Results
-1. **Statistical Analysis Summary (Figs and Extended Data Figs)**  
-   Refer to "**Supplementary Table 1. Summary of statical analysis.xlsx**" for a detailed breakdown.  
-   *Currently, the statistical results are not included (to be updated soon)—only sample information and Allen Brain Atlas CCFv3 region aberrations have been provided.*
+Sample information and brain-region annotations are provided in **Supplementary Table 1.xlsx**, accompanying the manuscript.
 ### Available Analyzed Data for Download
 - B6J Wild-type (8 weeks old, 1,3,5,7,9,12 months, male), APPNL-G-F model (1,3,5,7,9 months, male), VCP model (8-9 weeks old, male), and TMT model (8 weeks old, male) cell data (xyz, cell type, atlas annotation ID) and template images used for registration.  
 - Aβ plaque data (xyz coordinates, plaque size, plaque intensity, atlas annotation ID) for B6J WT (1,3,5,7,9 months, male) and APPNL-G-F model (1,3,5,7,9 months, male), following methods described in Yanai et al., *Brain Communications* 2024 ([Tau-analysis repo](https://github.com/OrganismalSystemsBiology/Tau-analysis.git)).
@@ -167,6 +167,6 @@ Installation takes approximately 30 minutes. Running the provided demo workflows
 
 ## Citation
 If you utilize this code in your research, please cite our paper:
-**Whole-Brain Single-Neuron Atlas Reveals Microglial Security Hole Accelerating Neuronal Vulnerability**  
+**Whole-Brain Single-Neuron Atlas Reveals a Microglial Security-Hole Pattern**  
 **Mitani T.T. et al.**  
 *Under revision, publicly available on [Research Square](https://doi.org/10.21203/rs.3.rs-5827312/v1).*

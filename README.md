@@ -38,6 +38,10 @@ Folders named by condition (e.g., `APP_1m`, `APP_3m`) contain data such as `"#4_
   `"/Neurology/Analyzed_cell_distribution_data/APP_9m/#4_APPmodel_Abeta_APP9m_1/"`
 **Download link:**  
 [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
+
+### CUBIC-Atlas / CUBIC-Cloud data website
+The CUBIC-Atlas / CUBIC-Cloud data website has moved from `http://cubic-atlas.riken.jp` to [https://cubic-atlas.dspdb.systems-based-medicine.org/](https://cubic-atlas.dspdb.systems-based-medicine.org/). Please use the new URL to access the publicly available reference and whole-brain immunostaining datasets, including TH data.
+
 ## Overview
 The primary goal of this code is to identify and analyze all cells expressing neuron-marker (`anti-NeuN`) and microglia-marker (`anti-Iba1`) across the entire brain. We integrate **GPU-based** cell detection and **CPU-based** analyses. Advanced computational methods enable:
 - Single-cell and regional-level data integration  

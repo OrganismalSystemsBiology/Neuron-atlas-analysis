@@ -39,9 +39,6 @@ Folders named by condition (e.g., `APP_1m`, `APP_3m`) contain data such as `"#4_
 **Download link:**  
 [Google Drive](https://drive.google.com/drive/folders/1XrRgaWScrQQk3uV722mXu4JfQgIKu4IZ)
 
-### CUBIC-Atlas / CUBIC-Cloud data website
-The CUBIC-Atlas / CUBIC-Cloud data website has moved from `http://cubic-atlas.riken.jp` to [https://cubic-atlas.dspdb.systems-based-medicine.org/](https://cubic-atlas.dspdb.systems-based-medicine.org/). Please use the new URL to access the publicly available reference and whole-brain immunostaining datasets, including TH data.
-
 ## Overview
 The primary goal of this code is to identify and analyze all cells expressing neuron-marker (`anti-NeuN`) and microglia-marker (`anti-Iba1`) across the entire brain. We integrate **GPU-based** cell detection and **CPU-based** analyses. Advanced computational methods enable:
 - Single-cell and regional-level data integration  
@@ -153,6 +150,8 @@ Figure numbers in the table follow the current manuscript; notebook filenames re
 | `ED29_effectsize_neuronal_decrease.ipynb` | Effect-size distribution of App-specific neuronal decrease | Ext. Data Fig. 31a,b |
 | `ED31_microglia_redistribution_2D_physical.ipynb` | Microglial redistribution validated on 2D physical serial sections (Rs = 0.881; recovery vs. sampling) | Ext. Data Fig. 33a-c |
 
+
+The datasets for all three markers (PV, ChAT and TH) used in [`ED5_3D_IHC_vs_2D_ST_spatial_comparison.ipynb`](script/revision_2026/ED5_3D_IHC_vs_2D_ST_spatial_comparison.ipynb) can be downloaded from [this website](https://cubic-atlas.dspdb.systems-based-medicine.org/). **Note:** The website has moved from `http://cubic-atlas.riken.jp` to the linked URL.
 
 ## Summary of Results
 Sample information and brain-region annotations are provided in **Supplementary Table 1.xlsx**, accompanying the manuscript.

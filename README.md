@@ -193,4 +193,4 @@ This software is released under the **MIT License** (see [`LICENSE`](LICENSE)).
 If you use this code or the deposited Neuron Atlas datasets, please cite:
 - **Article:** Mitani, T.T. *et al.* Whole-Brain Single-Neuron Atlas Reveals a Microglial Security-Hole Pattern. *Nature* (in press).
 - **Processed Dataset (EMBL-EBI BioImage Archive):** Mitani, T.T. *et al.* Whole-Brain Single-Neuron Atlas Reveals a Microglial Security-Hole Pattern. *BioImage Archive* [`S-BIAD4432`](https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD4432) (2026).
-- **Archived Code (Zenodo):** Mitani, T.T. *et al.* Neuron Atlas Analysis: Whole-Brain Single-Neuron Atlas Analysis Pipeline (`v1.0.1`). *Zenodo* https://doi.org/10.5281/zenodo.24283890 (concept DOI resolving to the latest release; `v1.0.0`: https://doi.org/10.5281/zenodo.24283891) (2026).
+- **Archived Code (Zenodo):** Mitani, T.T. *et al.* Neuron Atlas Analysis: Whole-Brain Single-Neuron Atlas Analysis Pipeline (`v1.0.2`). *Zenodo* https://doi.org/10.5281/zenodo.24283890 (concept DOI resolving to the latest release; `v1.0.0`: https://doi.org/10.5281/zenodo.24283891) (2026).

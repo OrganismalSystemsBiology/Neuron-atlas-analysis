@@ -2,7 +2,7 @@ cff-version: 1.2.0
 message: "If you use this software, please cite both the article and this archived software release."
 title: "Neuron Atlas Analysis: Whole-Brain Single-Neuron Atlas Analysis Pipeline"
 type: software
-version: "1.0.1"
+version: "1.0.2"
 date-released: "2026-11-22"
 doi: "10.5281/zenodo.24283890"
 license: "MIT"

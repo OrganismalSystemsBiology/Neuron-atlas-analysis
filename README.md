@@ -167,9 +167,9 @@ python script/MultiChannelVerification-rank-simple-dsb.py \
 ---
 
 ## Peer-Review Validation Analyses (`script/revision_2026/`)
-Notebook filenames retain their historical peer-review IDs; the table maps each notebook to both the **final *Nature* publication display item (6 Main + 13 Extended Data + 30 Supplementary Figures)** and the **earlier peer-review figure number**:
+Notebook filenames retain their historical peer-review IDs; the table maps each notebook to both the **final manuscript display item (6 Main + 13 Extended Data + 30 Supplementary Figures)** and the **earlier peer-review figure number**:
 
-| Notebook (`script/revision_2026/`) | Analysis | Final *Nature* Display Item | Prior Review Item |
+| Notebook (`script/revision_2026/`) | Analysis | Final Display Item | Prior Review Item |
 |---|---|---|---|
 | `ED5_3D_IHC_vs_2D_ST_spatial_comparison.ipynb` | Spatial comparison of 3D IHC versus 2D ST distributions for PV/ChAT/TH (NND; odds ratio) | Supplementary Fig. 5b,c | Ext. Data Fig. 5b,c |
 | `ED18_permutation_validation_fibertract_layer6b.ipynb` | Permutation validation of fiber-tract / cortical layer-6b neuronal decrease | Supplementary Fig. 18b,d | Ext. Data Fig. 18b,d |
@@ -191,6 +191,6 @@ Reference datasets for PV, ChAT, and TH used in `ED5_3D_IHC_vs_2D_ST_spatial_com
 This software is released under the **MIT License** (see [`LICENSE`](LICENSE)).
 
 If you use this code or the deposited Neuron Atlas datasets, please cite:
-- **Article:** Mitani, T.T. *et al.* Whole-Brain Single-Neuron Atlas Reveals a Microglial Security-Hole Pattern. *Nature* (in press).
+- **Article:** Mitani, T.T. *et al.* Whole-Brain Single-Neuron Atlas Reveals a Microglial Security-Hole Pattern (2026).
 - **Processed Dataset (EMBL-EBI BioImage Archive):** Mitani, T.T. *et al.* Whole-Brain Single-Neuron Atlas Reveals a Microglial Security-Hole Pattern. *BioImage Archive* [`S-BIAD4432`](https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD4432) (2026).
 - **Archived Code (Zenodo):** Mitani, T.T. *et al.* Neuron Atlas Analysis: Whole-Brain Single-Neuron Atlas Analysis Pipeline (`v1.0.2`). *Zenodo* https://doi.org/10.5281/zenodo.24283890 (concept DOI resolving to the latest release; `v1.0.0`: https://doi.org/10.5281/zenodo.24283891) (2026).

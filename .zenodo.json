@@ -1,0 +1,96 @@
+{
+  "title": "Neuron Atlas Analysis: Whole-Brain Single-Neuron Atlas Analysis Pipeline",
+  "upload_type": "software",
+  "version": "v1.0.2",
+  "creators": [
+    {
+      "name": "Mitani, Tomoki T.",
+      "affiliation": "Laboratory for Synthetic Biology, RIKEN Center for Biosystems Dynamics Research, Suita, Osaka, Japan; Department of Systems Biology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan; Department of Neurology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan; Department of Systems Pharmacology, Graduate School of Medicine, The University of Tokyo, Bunkyo-ku, Tokyo, Japan; Department of Clinical and Translational Brain Research, Field for Brain Health and Prevention, Brain Research Institute, Niigata University, Niigata, Japan; Division of Molecular Neurobiology, Department of Medical Biochemistry and Biophysics, Karolinska Institutet, Stockholm, Sweden",
+      "orcid": "0009-0007-6995-7053"
+    },
+    {
+      "name": "Beck, Goichi",
+      "affiliation": "Department of Neurology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan"
+    },
+    {
+      "name": "Baba, Kousuke",
+      "affiliation": "Department of Neurology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan"
+    },
+    {
+      "name": "Yamaura, Kosei",
+      "affiliation": "Laboratory for Synthetic Biology, RIKEN Center for Biosystems Dynamics Research, Suita, Osaka, Japan; Department of Systems Biology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan"
+    },
+    {
+      "name": "Hijioka, Masanori",
+      "affiliation": "Department of Neurocognitive Science, Institute of Brain Science, Graduate School of Medical Sciences, Nagoya City University, Nagoya, Japan; Department of Neuropathology, Graduate School of Medicine, The University of Tokyo, Bunkyo-ku, Tokyo, Japan"
+    },
+    {
+      "name": "Hayakawa, Hideki",
+      "affiliation": "Department of Neurology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan; Department of Child Development and Molecular Brain Science, United Graduate School of Child Development, Osaka University, Suita, Osaka, Japan"
+    },
+    {
+      "name": "Yamada, Rikuhiro G.",
+      "affiliation": "Laboratory for Synthetic Biology, RIKEN Center for Biosystems Dynamics Research, Suita, Osaka, Japan; Department of Systems Pharmacology, Graduate School of Medicine, The University of Tokyo, Bunkyo-ku, Tokyo, Japan; Department of Systems Biology, Institute of Life Science, Kurume University, Fukuoka, Japan",
+      "orcid": "0009-0003-0788-3176"
+    },
+    {
+      "name": "Matsumoto, Katsuhiko",
+      "affiliation": "Laboratory for Synthetic Biology, RIKEN Center for Biosystems Dynamics Research, Suita, Osaka, Japan; Department of Systems Pharmacology, Graduate School of Medicine, The University of Tokyo, Bunkyo-ku, Tokyo, Japan"
+    },
+    {
+      "name": "Susaki, Etsuo A.",
+      "affiliation": "Laboratory for Synthetic Biology, RIKEN Center for Biosystems Dynamics Research, Suita, Osaka, Japan; Department of Biochemistry and Systems Biomedicine, Graduate School of Medicine, Juntendo University, Tokyo, Japan; Nakatani Biomedical Spatialomics Hub, Graduate School of Medicine, Juntendo University, Tokyo, Japan; Institute for Quantum Life Science, National Institutes for Quantum Science and Technology, Chiba, Japan"
+    },
+    {
+      "name": "Sahara, Naruhiko",
+      "affiliation": "Department of Clinical and Translational Brain Research, Field for Brain Health and Prevention, Brain Research Institute, Niigata University, Niigata, Japan; Advanced Neuroimaging Center, Institute for Quantum Medical Science, National Institutes for Quantum Science and Technology, Chiba, Japan; Department of Neuroscience and Pathobiology, Research Institute of Environmental Medicine, Nagoya University, Aichi, Japan"
+    },
+    {
+      "name": "Yanai, Rin",
+      "affiliation": "Advanced Neuroimaging Center, Institute for Quantum Medical Science, National Institutes for Quantum Science and Technology, Chiba, Japan"
+    },
+    {
+      "name": "Ikenaka, Kensuke",
+      "affiliation": "Department of Neurology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan"
+    },
+    {
+      "name": "Jiang, Shiying",
+      "affiliation": "Department of Neurology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan"
+    },
+    {
+      "name": "Shimada, Hitoshi",
+      "affiliation": "Department of Clinical and Translational Brain Research, Field for Brain Health and Prevention, Brain Research Institute, Niigata University, Niigata, Japan; Institute for Quantum Life Science, National Institutes for Quantum Science and Technology, Chiba, Japan; Department of Neurology, Graduate School of Medicine, Chiba University, Chiba, Japan"
+    },
+    {
+      "name": "Saito, Takashi",
+      "affiliation": "Department of Neurocognitive Science, Institute of Brain Science, Graduate School of Medical Sciences, Nagoya City University, Nagoya, Japan; Department of Neuropathology, Graduate School of Medicine, The University of Tokyo, Bunkyo-ku, Tokyo, Japan; Department of Neuroscience and Pathobiology, Research Institute of Environmental Medicine, Nagoya University, Aichi, Japan"
+    },
+    {
+      "name": "Mochizuki, Hideki",
+      "affiliation": "Department of Neurology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan; National Hospital Organization Osaka Toneyama Medical Center, Osaka, Japan"
+    },
+    {
+      "name": "Ueda, Hiroki R.",
+      "affiliation": "Laboratory for Synthetic Biology, RIKEN Center for Biosystems Dynamics Research, Suita, Osaka, Japan; Department of Systems Biology, Graduate School of Medicine, Osaka University, Suita, Osaka, Japan; Department of Systems Pharmacology, Graduate School of Medicine, The University of Tokyo, Bunkyo-ku, Tokyo, Japan; Department of Systems Biology, Institute of Life Science, Kurume University, Fukuoka, Japan; Institute for Quantum Life Science, National Institutes for Quantum Science and Technology, Chiba, Japan",
+      "orcid": "0000-0001-8342-9176"
+    }
+  ],
+  "license": "MIT",
+  "access_right": "open",
+  "description": "<p>Archival release (v1.0.2) of the whole-brain single-neuron atlas analysis pipeline accompanying Mitani T.T. et al., \"Whole-Brain Single-Neuron Atlas Reveals a Microglial Security-Hole Pattern\" (preprint [earlier version]: <a href=\"https://doi.org/10.21203/rs.3.rs-5827312/v1\">https://doi.org/10.21203/rs.3.rs-5827312/v1</a>), aligned with EMBL-EBI BioImage Archive accession S-BIAD4432 (<a href=\"https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD4432\">https://www.ebi.ac.uk/biostudies/bioimages/studies/S-BIAD4432</a>).</p>\n<p>Summary of repository contents:</p>\n<ul>\n<li>Complete C++/CUDA, Python, and R analysis pipeline, documentation (README.md), CITATION.cff metadata, and Supplementary Table 1.xlsx (27 experimental cohorts / 111 brains; 10x d-MOVIE cell-type imaging and 0.65x macroscopic Abeta imaging; Allen Brain Atlas CCFv3 region abbreviations) aligned with BioImage Archive S-BIAD4432.</li>\n<li>Peer-review validation notebook suite (<code>script/revision_2026/</code>) mapped to the final manuscript display items (6 Main, 13 Extended Data, and 30 Supplementary Figures).</li>\n</ul>\n<p><strong>Funding:</strong> This study was supported by grants from JST ERATO JPMJER2001 (to H.R.U.); JST ACT-X JPMJAX242I (to T.T.M.); JST FOREST JPMJFR220R (to H.S.); MEXT QLEAP JPMXS0120330644 (to H.R.U.); JST Moonshot R&D JPMJMS2023 (to K.M. and R.G.Y.); JST Moonshot R&D JPMJMS2024 (to T.T.M., T.S.); AMED/MEXT JP20am0401011 (to H.R.U.); AMED JP25wm0625129 (to T.T.M.); AMED JP25jf0126019 (to H.R.U., R.G.Y.); AMED JP24zf0127011 (to H.M., G.B., and K.B.); AMED JP23bm1423012 and JP21gm1410009 (to N.S.); AMED JP24gm1910008 and JP24wm0625205 (to H.S.); JSPS KAKENHI JP18H05270 and JP26K21761 (to H.R.U.), JP20K06885 (to K.M.), JP22H02824 and JP23K20044 (to E.A.S.), JP24K02268 (to N.S.), JP20K16498 and JP25K10180 (to T.T.M.), JP25K10791 (to H.H.), and JP23K27516 (to H.S.); JSPS KAKENHI, International Leading Research, Grant Number JP26K25629 (to H.R.U.); and grants-in-aid from the Human Frontier Science Program (to H.R.U.), the Takeda Science Foundation (to E.A.S. and T.T.M.), UTEC-UTokyo, the Nakatani Foundation (to E.A.S.), the Grant-in-Aid for International Academic Exchange Program from the Osaka University Medical School Alumni (to T.T.M.), the Grant-in-Aid for Outstanding Research Group Support Program in Nagoya City University (Grant Number 2401101; to M.H. and T.S.), and the intramural Grant-in-Aid from the RIKEN Center for Biosystems Dynamics Research (to H.R.U.).</p>",
+  "notes": "If you use this software, please cite both the accompanying article and this archived software release.",
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/OrganismalSystemsBiology/Neuron-atlas-analysis/tree/v1.0.2",
+      "relation": "isSupplementTo",
+      "resource_type": "software",
+      "scheme": "url"
+    },
+    {
+      "identifier": "10.21203/rs.3.rs-5827312/v1",
+      "relation": "isSupplementTo",
+      "resource_type": "publication-preprint",
+      "scheme": "doi"
+    }
+  ]
+}
